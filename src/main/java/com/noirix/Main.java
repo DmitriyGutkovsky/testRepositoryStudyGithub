@@ -13,5 +13,6 @@ public class Main {
     System.out.println("String for cherry pick");
 
     System.out.println("Hello Dima");
+    System.out.println("dev: string for cherry pick");
   }
 }
