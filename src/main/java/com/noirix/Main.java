@@ -17,5 +17,8 @@ public class Main {
     System.out.println("added line for 1 commit");
     System.out.println("added line for 2 commit");
     System.out.println("added line for 3 commit");
+    System.out.println("dev: string for cherry pick");
+
+    System.out.println("dev changes: merge 2 branch");
   }
 }
