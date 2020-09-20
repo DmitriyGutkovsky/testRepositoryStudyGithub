@@ -25,5 +25,8 @@ public class Main {
     System.out.println("commit 2 in dev before task1");
 
     System.out.println("commit in dev after creating all tasks");
+
+    System.out.println("create task 3");
+    System.out.println("task 3: request for merging");
   }
 }
