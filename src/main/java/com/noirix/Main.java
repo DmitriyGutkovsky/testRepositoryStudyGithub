@@ -20,5 +20,11 @@ public class Main {
     System.out.println("dev: string for cherry pick");
 
     System.out.println("dev changes: merge 2 branch");
+
+    System.out.println("commit in dev before task1");
+    System.out.println("commit 2 in dev before task1");
+
+    System.out.println("create task 3");
+    System.out.println("task 3: request for merging");
   }
 }
