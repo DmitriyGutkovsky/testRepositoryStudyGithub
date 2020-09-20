@@ -28,5 +28,6 @@ public class Main {
     System.out.println("commit 2 in task 1");
 
     System.out.println("commit 1 in task 2");
+    System.out.println("commit 2 in task 2");
   }
 }
