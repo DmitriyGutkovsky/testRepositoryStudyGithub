@@ -24,6 +24,10 @@ public class Main {
     System.out.println("commit in dev before task1");
     System.out.println("commit 2 in dev before task1");
 
+    System.out.println("commit 1 in task 1");
+    System.out.println("commit 2 in task 1");
+    System.out.println("commit into task1 for cherry pick");
+    System.out.println("resolve merge conflict");
     System.out.println("commit in dev after creating all tasks");
 
     System.out.println("create task 3");
