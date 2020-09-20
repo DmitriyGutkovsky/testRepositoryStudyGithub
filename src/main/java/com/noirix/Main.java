@@ -20,5 +20,7 @@ public class Main {
     System.out.println("dev: string for cherry pick");
 
     System.out.println("dev changes: merge 2 branch");
+
+    System.out.println(" some commit in master");
   }
 }
