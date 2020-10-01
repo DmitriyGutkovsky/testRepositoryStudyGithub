@@ -10,6 +10,11 @@
         <welcome-file>index.htm</welcome-file>
     </welcome-file-list>
 
+    <error-page>
+        <error-code>500</error-code>
+        <location>/error500</location>
+    </error-page>
+
     <listener>
         <listener-class>com.noirix.listener.CustomContextListener</listener-class>
     </listener>
