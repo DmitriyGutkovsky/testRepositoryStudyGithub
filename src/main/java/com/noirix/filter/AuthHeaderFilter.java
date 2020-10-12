@@ -20,25 +20,25 @@ public class AuthHeaderFilter implements Filter {
     HttpServletRequest castedRequest = (HttpServletRequest) request;
     String autHeader = castedRequest.getHeader("X-Auth-Token");
 
-//    if (StringUtils.isNotBlank(autHeader)) { // for future JWT Token Auth
-//      System.out.println("Header was found with payload: " + autHeader);
-//    } else {
-//      System.out.println("Header was not found");
-//    }
-
-    // remade filter's logic :  if there is no X-Auth-Token, the request should be redirect to error page 500
-
     if (StringUtils.isNotBlank(autHeader)) { // for future JWT Token Auth
       System.out.println("Header was found with payload: " + autHeader);
     } else {
       System.out.println("Header was not found");
+    }
+
+    // remade filter's logic :  if there is no X-Auth-Token, the request should be redirect to error page 500
+
+//    if (StringUtils.isNotBlank(autHeader)) { // for future JWT Token Auth
+//      System.out.println("Header was found with payload: " + autHeader);
+//    } else {
+//      System.out.println("Header was not found");
 //      castedRequest.getRequestDispatcher("/WEB-INF/errors/500.jsp").forward(request, response);
 //      castedRequest.getRequestDispatcher("/error500").forward(request, response);
 
 //      ((HttpServletResponse)response).sendError(500);
 //                    =
 //      ((HttpServletResponse)response).sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-    }
+//    }
 
     chain.doFilter(request, response);
   }

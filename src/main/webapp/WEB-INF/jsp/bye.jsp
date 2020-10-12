@@ -11,7 +11,8 @@
     <title>Bye</title>
 </head>
 <body>
-Bye page
+Bye page<br>
+${userName}
 <h4>
     Go to
     <a href="main"> main.jsp </a>
