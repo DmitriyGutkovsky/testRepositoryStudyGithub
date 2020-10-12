@@ -15,7 +15,9 @@ Bye page<br>
 ${userName}<br>
 ${carModel}<br>
 findCarById<br>
-${findCarById}
+${findCarById}<br>
+This item will be deleted now:<br>
+${check_delete}
 
 <h4>
     Go to

@@ -47,6 +47,10 @@ public class FrontController extends HttpServlet {
       req.setAttribute("carModel", carRepository.findAll().stream().map(Car::getModel).collect(Collectors.joining(", ")));
       //check method findById()
       req.setAttribute("findCarById", carRepository.findById(1l));
+      //check delete() method
+      req.setAttribute("check_delete", carRepository.delete(carRepository.findById(4l)));
+
+
       dispatcher.forward(req, resp);
     }
 

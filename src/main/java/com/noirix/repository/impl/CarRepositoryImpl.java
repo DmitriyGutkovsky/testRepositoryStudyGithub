@@ -82,7 +82,7 @@ public class CarRepositoryImpl implements CarRepository {
 
   @Override
   public Car findById(Long key) {
-    String findAllQuery = "select * from m_cars where id=" + key;
+    String findById = "select * from m_cars where id=" + key;
 
     Connection connection;
     Statement statement;
@@ -101,7 +101,7 @@ public class CarRepositoryImpl implements CarRepository {
     try {
       connection = DriverManager.getConnection(jdbcURL, DATABASE_LOGIN, DATABASE_PASSWORD);
       statement = connection.createStatement();
-      rs = statement.executeQuery(findAllQuery);
+      rs = statement.executeQuery(findById);
 
       while (rs.next()) {
         car.setId(rs.getLong(ID));
@@ -126,11 +126,36 @@ public class CarRepositoryImpl implements CarRepository {
 
   @Override
   public Car update(Car object) {
+    final String updateQuery = "update m_cars set model='Lada' where id =1";
     return null;
   }
 
   @Override
-  public Long delete(Car object) {
-    return null;
+  public Long delete(Car car) {
+    final String deleteQuery = "delete from m_cars where id="+car.getId();
+    Connection connection;
+    Statement statement;
+    ResultSet rs;
+
+    try {
+      Class.forName(POSTGRES_DRIVER_NAME);
+    } catch (ClassNotFoundException e) {
+      e.printStackTrace();
+    }
+
+    String jdbcURL = StringUtils.join(DATABASE_URL, DATABASE_PORT, DATABASE_NAME);
+
+    try {
+      connection = DriverManager.getConnection(jdbcURL, DATABASE_LOGIN, DATABASE_PASSWORD);
+      statement = connection.createStatement();
+      statement.executeUpdate(deleteQuery);
+
+    } catch (SQLException e) {
+      System.err.println(e.getMessage());
+      throw new RuntimeException("SQL Isses in delete() method!");
+    }
+
+
+    return car.getId();
   }
 }
