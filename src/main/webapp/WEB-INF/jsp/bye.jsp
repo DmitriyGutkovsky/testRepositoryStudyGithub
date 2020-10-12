@@ -12,7 +12,9 @@
 </head>
 <body>
 Bye page<br>
-${userName}
+${userName}<br>
+${carModel}
+
 <h4>
     Go to
     <a href="main"> main.jsp </a>

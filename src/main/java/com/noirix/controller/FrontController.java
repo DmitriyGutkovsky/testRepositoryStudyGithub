@@ -1,7 +1,10 @@
 package com.noirix.controller;
 
+import com.noirix.domain.Car;
 import com.noirix.domain.User;
+import com.noirix.repository.CarRepository;
 import com.noirix.repository.UserRepository;
+import com.noirix.repository.impl.CarRepositoryImpl;
 import com.noirix.repository.impl.UserRepositoryImpl;
 
 import javax.servlet.RequestDispatcher;
@@ -15,6 +18,7 @@ import java.util.stream.Collectors;
 
 public class FrontController extends HttpServlet {
   public static final UserRepository userRepository = new UserRepositoryImpl();
+  public static final CarRepository carRepository = new CarRepositoryImpl();
 
   public FrontController() {
     super();
@@ -40,6 +44,7 @@ public class FrontController extends HttpServlet {
       System.out.println("Forward will be done!");
       req.setAttribute("userName", userRepository.findAll().stream().map(User::getName)
               .collect(Collectors.joining(",")));
+      req.setAttribute("carModel", carRepository.findAll().stream().map(Car::getModel).collect(Collectors.joining(", ")));
       dispatcher.forward(req, resp);
     }
 
