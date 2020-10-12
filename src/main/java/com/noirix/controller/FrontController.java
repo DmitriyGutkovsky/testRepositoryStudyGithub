@@ -1,5 +1,6 @@
 package com.noirix.controller;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,23 +25,23 @@ public class FrontController extends HttpServlet {
 
     private void doRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //        перенаправляет на страницу bye.jsp
-//        RequestDispatcher dispatcher = req.getRequestDispatcher("/bye");
-//        if (dispatcher != null) {
-//            System.out.println("Forward will be done!");
-//            dispatcher.forward(req, resp);
-//        }
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/bye");
+        if (dispatcher != null) {
+            System.out.println("Forward will be done!");
+            dispatcher.forward(req, resp);
+        }
 
         //5 task: при нажатии кнопки на index.jsp  переходит на страницу FrontController
         // и выводит текст-приветствие
 
-        resp.setContentType("text/html");
-        PrintWriter out = resp.getWriter();
-        out.println("<html><head>");
-        out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">");
-        out.println("<title>Titke</title>");
-        out.println("</head><body>");
-        out.println("<h1> Hello, word from FrontController!!! </h1>");
-        out.println("</body></html>");
+//        resp.setContentType("text/html");
+//        PrintWriter out = resp.getWriter();
+//        out.println("<html><head>");
+//        out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">");
+//        out.println("<title>Titke</title>");
+//        out.println("</head><body>");
+//        out.println("<h1> Hello, word from FrontController!!! </h1>");
+//        out.println("</body></html>");
 
         // 6 task перенаправляет на страницу main.jsp
 //        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/jsp/main.jsp");

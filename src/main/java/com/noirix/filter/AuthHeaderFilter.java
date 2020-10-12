@@ -33,7 +33,7 @@ public class AuthHeaderFilter implements Filter {
     } else {
       System.out.println("Header was not found");
 //      castedRequest.getRequestDispatcher("/WEB-INF/errors/500.jsp").forward(request, response);
-      castedRequest.getRequestDispatcher("/error500").forward(request, response);
+//      castedRequest.getRequestDispatcher("/error500").forward(request, response);
 
 //      ((HttpServletResponse)response).sendError(500);
 //                    =
