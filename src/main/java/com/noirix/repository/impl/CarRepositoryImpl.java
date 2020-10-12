@@ -82,7 +82,41 @@ public class CarRepositoryImpl implements CarRepository {
 
   @Override
   public Car findById(Long key) {
-    return null;
+    String findAllQuery = "select * from m_cars where id=" + key;
+
+    Connection connection;
+    Statement statement;
+    ResultSet rs;
+    Car car = new Car();
+
+    try {
+      Class.forName(POSTGRES_DRIVER_NAME);
+    } catch (ClassNotFoundException e) {
+      System.err.println("JDBC Driver Cannot be loaded!");
+      throw new RuntimeException("JDBC Driver Cannot be loaded!");
+    }
+
+    String jdbcURL = StringUtils.join(DATABASE_URL, DATABASE_PORT, DATABASE_NAME);
+
+    try {
+      connection = DriverManager.getConnection(jdbcURL, DATABASE_LOGIN, DATABASE_PASSWORD);
+      statement = connection.createStatement();
+      rs = statement.executeQuery(findAllQuery);
+
+      while (rs.next()) {
+        car.setId(rs.getLong(ID));
+        car.setModel(rs.getString(MODEL));
+        car.setCreationYear(rs.getInt(CREATION_YEAR));
+        car.setUser_id(rs.getLong(USER_ID));
+        car.setPrice(rs.getDouble(PRICE));
+        car.setColor(rs.getString(COLOR));
+      }
+
+    } catch (SQLException e) {
+      System.err.println(e.getMessage());
+      throw new RuntimeException("SQL Isses!");
+    }
+    return car;
   }
 
   @Override

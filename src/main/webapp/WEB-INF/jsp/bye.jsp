@@ -13,7 +13,9 @@
 <body>
 Bye page<br>
 ${userName}<br>
-${carModel}
+${carModel}<br>
+findCarById<br>
+${findCarById}
 
 <h4>
     Go to
