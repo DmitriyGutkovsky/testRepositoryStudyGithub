@@ -20,6 +20,9 @@ This item will be deleted now:<br>
 ${check_delete}<br>
 Test method save:<br>
 ${saved_object}
+<br>
+Test method update<br>
+${check_update}
 <h4>
     Go to
     <a href="main"> main.jsp </a>

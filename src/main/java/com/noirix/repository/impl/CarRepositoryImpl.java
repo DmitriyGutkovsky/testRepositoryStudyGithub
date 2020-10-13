@@ -158,12 +158,10 @@ public class CarRepositoryImpl implements CarRepository {
 
   @Override
   public Car update(Car object) {
-    String findById = "select * from m_cars where id=" + object.getId();
-
+    final String updateQuery = "update m_cars set model = ?, creation_year = ?, user_id = ?, price = ?, " +
+            "color = ? where id = ?";
     Connection connection;
-    Statement statement;
-    ResultSet rs;
-    Car carForUpdate = new Car();
+    PreparedStatement preparedStatement;
 
     try {
       Class.forName(POSTGRES_DRIVER_NAME);
@@ -176,31 +174,24 @@ public class CarRepositoryImpl implements CarRepository {
 
     try {
       connection = DriverManager.getConnection(jdbcURL, DATABASE_LOGIN, DATABASE_PASSWORD);
-      statement = connection.createStatement();
+      preparedStatement = connection.prepareStatement(updateQuery);
+      preparedStatement.setString(1, object.getModel());
+      preparedStatement.setInt(2, object.getCreationYear());
+      preparedStatement.setLong(3, object.getUser_id());
+      preparedStatement.setDouble(4, object.getPrice());
+      preparedStatement.setString(5, object.getColor());
+      preparedStatement.setLong(6, object.getId());
 
-      rs = statement.executeQuery(findById);
-
-      while (rs.next()) {
-        carForUpdate.setId(rs.getLong(ID));
-        if (!object.getId().equals(carForUpdate.getId())) {
-          rs.updateRow();
-        }
-        carForUpdate.setModel(rs.getString(MODEL));
-        carForUpdate.setCreationYear(rs.getInt(CREATION_YEAR));
-        carForUpdate.setUser_id(rs.getLong(USER_ID));
-        carForUpdate.setPrice(rs.getDouble(PRICE));
-        carForUpdate.setColor(rs.getString(COLOR));
-      }
+      preparedStatement.executeUpdate();
 
     } catch (SQLException e) {
       System.err.println(e.getMessage());
-      throw new RuntimeException("SQL Isses in findById()!");
+      throw new RuntimeException("SQL Isses in update()!");
     }
 
-    final String updateQuery = "update m_cars set model='Lada' where id =" + object.getId();
-    Car carAfterUpdate = new Car();
+    Car updatedCar = findById(object.getId());
 
-    return null;
+    return updatedCar;
   }
 
   @Override

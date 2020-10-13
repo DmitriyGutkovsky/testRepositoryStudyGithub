@@ -60,6 +60,12 @@ public class FrontController extends HttpServlet {
 
       req.setAttribute("saved_object", carRepository.save(newCar));
 
+      //check update() method
+
+      newCar.setModel("Test2-test-Test");
+      newCar.setId(10l);
+      req.setAttribute("check_update", carRepository.update(newCar));
+
       dispatcher.forward(req, resp);
     }
 
