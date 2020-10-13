@@ -17,8 +17,9 @@ ${carModel}<br>
 findCarById<br>
 ${findCarById}<br>
 This item will be deleted now:<br>
-${check_delete}
-
+${check_delete}<br>
+Test method save:<br>
+${saved_object}
 <h4>
     Go to
     <a href="main"> main.jsp </a>

@@ -33,7 +33,39 @@ public class CarRepositoryImpl implements CarRepository {
 
   @Override
   public Car save(Car object) {
-    return null;
+    final String createLine =
+        "insert into m_cars(model,creation_year,user_id, price,color) VALUES(?,?,?,?,?)";
+    Connection connection;
+    PreparedStatement preparedStatement;
+    Long index;
+
+    try {
+      Class.forName(POSTGRES_DRIVER_NAME);
+    } catch (ClassNotFoundException e) {
+      System.err.println("JDBC Driver Cannot be loaded!");
+      throw new RuntimeException("JDBC Driver Cannot be loaded!");
+    }
+
+    String jdbcURL = StringUtils.join(DATABASE_URL, DATABASE_PORT, DATABASE_NAME);
+
+    try {
+      connection = DriverManager.getConnection(jdbcURL, DATABASE_LOGIN, DATABASE_PASSWORD);
+      preparedStatement = connection.prepareStatement(createLine);
+      preparedStatement.setString(1, object.getModel());
+      preparedStatement.setInt(2, object.getCreationYear());
+      preparedStatement.setLong(3, object.getUser_id());
+      preparedStatement.setDouble(4, object.getPrice());
+      preparedStatement.setString(5, object.getColor());
+      index = (long) preparedStatement.executeUpdate();
+
+    } catch (SQLException e) {
+      System.err.println(e.getMessage());
+      throw new RuntimeException("SQL Isses in save()!");
+    }
+
+    Car createdCar = findById(index);
+
+    return createdCar;
   }
 
   @Override
@@ -76,7 +108,7 @@ public class CarRepositoryImpl implements CarRepository {
 
     } catch (SQLException e) {
       System.err.println(e.getMessage());
-      throw new RuntimeException("SQL Isses!");
+      throw new RuntimeException("SQL Isses in findAll()!");
     }
   }
 
@@ -114,7 +146,7 @@ public class CarRepositoryImpl implements CarRepository {
 
     } catch (SQLException e) {
       System.err.println(e.getMessage());
-      throw new RuntimeException("SQL Isses!");
+      throw new RuntimeException("SQL Isses in findById()!");
     }
     return car;
   }
@@ -126,13 +158,60 @@ public class CarRepositoryImpl implements CarRepository {
 
   @Override
   public Car update(Car object) {
-    final String updateQuery = "update m_cars set model='Lada' where id =1";
+    String findById = "select * from m_cars where id=" + object.getId();
+
+    Connection connection;
+    Statement statement;
+    ResultSet rs;
+    Car carForUpdate = new Car();
+
+    try {
+      Class.forName(POSTGRES_DRIVER_NAME);
+    } catch (ClassNotFoundException e) {
+      System.err.println("JDBC Driver Cannot be loaded!");
+      throw new RuntimeException("JDBC Driver Cannot be loaded!");
+    }
+
+    String jdbcURL = StringUtils.join(DATABASE_URL, DATABASE_PORT, DATABASE_NAME);
+
+    try {
+      connection = DriverManager.getConnection(jdbcURL, DATABASE_LOGIN, DATABASE_PASSWORD);
+      statement = connection.createStatement();
+
+      rs = statement.executeQuery(findById);
+
+      while (rs.next()) {
+        carForUpdate.setId(rs.getLong(ID));
+        if (!object.getId().equals(carForUpdate.getId())) {
+          rs.updateRow();
+        }
+        carForUpdate.setModel(rs.getString(MODEL));
+        carForUpdate.setCreationYear(rs.getInt(CREATION_YEAR));
+        carForUpdate.setUser_id(rs.getLong(USER_ID));
+        carForUpdate.setPrice(rs.getDouble(PRICE));
+        carForUpdate.setColor(rs.getString(COLOR));
+      }
+
+    } catch (SQLException e) {
+      System.err.println(e.getMessage());
+      throw new RuntimeException("SQL Isses in findById()!");
+    }
+
+    final String updateQuery = "update m_cars set model='Lada' where id =" + object.getId();
+    Car carAfterUpdate = new Car();
+
     return null;
   }
 
   @Override
   public Long delete(Car car) {
-    final String deleteQuery = "delete from m_cars where id="+car.getId();
+
+    if (car == null) {
+      System.out.println("Object is null, cannot be deleted");
+      throw new RuntimeException("Object is null, cannot be deleted");
+    }
+
+    final String deleteQuery = "delete from m_cars where id=" + car.getId();
     Connection connection;
     Statement statement;
     ResultSet rs;
@@ -154,8 +233,6 @@ public class CarRepositoryImpl implements CarRepository {
       System.err.println(e.getMessage());
       throw new RuntimeException("SQL Isses in delete() method!");
     }
-
-
     return car.getId();
   }
 }

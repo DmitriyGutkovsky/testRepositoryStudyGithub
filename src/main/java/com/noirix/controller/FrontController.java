@@ -50,6 +50,15 @@ public class FrontController extends HttpServlet {
       //check delete() method
       req.setAttribute("check_delete", carRepository.delete(carRepository.findById(4l)));
 
+      //check save() method
+      Car newCar = new Car();
+      newCar.setModel("TEST");
+      newCar.setCreationYear(2015);
+      newCar.setColor("RED");
+      newCar.setPrice(8500.0);
+      newCar.setUser_id(1l);
+
+      req.setAttribute("saved_object", carRepository.save(newCar));
 
       dispatcher.forward(req, resp);
     }
