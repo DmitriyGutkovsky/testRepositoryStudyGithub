@@ -42,3 +42,18 @@ from m_auto_dealer as d join m_cars mc on d.id = mc.dealer_id
 join m_body mb on mc.id = mb.car_id
 where mc.creation_year < 2018 and mb.color = 'red'
 group by d.name;
+
+
+-- TASK 4: Найти пользователей не из Беларуси и России,
+--          у которых есть машина 2010-2015 года выпуска из Германии и купленную в диллере не в Германии
+--          с объемом двигателя больше 3 литра.
+
+select username
+from m_users  join m_cars mc on m_users.id = mc.user_id
+join m_auto_dealer mad on mad.id = mc.dealer_id
+join m_engine me on mc.id = me.car_id
+where m_users.country <> 'Russia' and m_users.country <> 'Belarus'
+        and (mc.creation_year between '2010' and '2015')
+        and mc.country_of_origin = 'Germany'
+        and mad.country <> 'Germany'
+        and me.volume >3;
