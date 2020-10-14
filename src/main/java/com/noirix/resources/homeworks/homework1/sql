@@ -1,0 +1,36 @@
+-- Homework SQL
+
+-- TASK 1: Вывести все уникальные имена ролей пользователей.
+select distinct role_name
+from m_roles;
+
+
+-- TASK 2: Подсчитать число машин у каждого пользователя.
+-- Вывести в формате
+-- User full name (username + пробел + user surname) | Число машин у пользователя.
+
+-- 1-ый вариант вывода: результат таблицей
+select username, surname, count(m_cars.id)
+from m_users
+         join m_cars
+              on m_users.id = m_cars.user_id
+GROUP BY m_users.id
+order by m_users.id;
+
+-- 2-ой вариант вывода: вывод одной колонкой (параметры перечислены в строку через ', '): User1, Surname1, 1
+select username || ', ' || surname || ', ' || count(m_cars.id)
+from m_users
+         join m_cars
+              on m_users.id = m_cars.user_id
+GROUP BY m_users.id
+order by m_users.id;
+
+-- 3-ий вариант вывода: двумя столбаци: первый столбец "User1, Surname1", второй - число машин у пользователя
+select username || ', ' || surname, count(m_cars.id)
+from m_users
+         join m_cars
+              on m_users.id = m_cars.user_id
+GROUP BY m_users.id
+order by m_users.id;
+
+
