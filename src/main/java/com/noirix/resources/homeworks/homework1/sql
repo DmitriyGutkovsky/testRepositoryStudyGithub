@@ -79,3 +79,11 @@ select distinct name, sum(c.price) as total_cars_price
 from m_auto_dealer dealer join m_cars c on dealer.id = c.dealer_id
 group by name
 order by name;
+
+
+-- TASK 7: Подсчитать количество уникальных пользователей, владеющих хотя бы одной машиной,
+--         стоимость которой превышает среднюю стоимость всех машин.
+
+select count(distinct u.id)
+from m_users u join m_cars c on u.id = c.user_id
+where price > (select avg(price) from m_cars);
