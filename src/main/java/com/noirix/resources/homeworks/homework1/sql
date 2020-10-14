@@ -65,3 +65,9 @@ select distinct login
 from m_users u join m_cars c on u.id = c.user_id
 group by login
 having count(c.id) > 3;
+
+-- added column with Qty m_cars
+select distinct login, count(c.id) as Qty_cars
+from m_users u join m_cars c on u.id = c.user_id
+group by login
+having count(c.id) > 3;
