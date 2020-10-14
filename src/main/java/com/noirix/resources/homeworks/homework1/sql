@@ -57,3 +57,11 @@ where m_users.country <> 'Russia' and m_users.country <> 'Belarus'
         and mc.country_of_origin = 'Germany'
         and mad.country <> 'Germany'
         and me.volume >3;
+
+
+-- TASK 5: Определить логины пользователей, имеющих больше 3 машин.
+
+select distinct login
+from m_users u join m_cars c on u.id = c.user_id
+group by login
+having count(c.id) > 3;
