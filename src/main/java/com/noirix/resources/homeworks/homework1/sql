@@ -34,3 +34,11 @@ GROUP BY m_users.id
 order by m_users.id;
 
 
+-- TASK 3: Подсчитать для каждого диллера число машин, старше 2018 года производства с красным кузовом.
+-- в таблицу m_cars добавил колонки: creation_year (год выпуска) и country_of_origin (страна происхождения)
+
+select d.name as dealer_name, count(mc.id)
+from m_auto_dealer as d join m_cars mc on d.id = mc.dealer_id
+join m_body mb on mc.id = mb.car_id
+where mc.creation_year < 2018 and mb.color = 'red'
+group by d.name;
