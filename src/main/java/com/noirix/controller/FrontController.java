@@ -1,12 +1,13 @@
 package com.noirix.controller;
 
+import com.google.gson.Gson;
 import com.noirix.controller.command.Commands;
-import com.noirix.domain.Car;
 import com.noirix.domain.User;
 import com.noirix.repository.CarRepository;
 import com.noirix.repository.UserRepository;
 import com.noirix.repository.impl.CarRepositoryImpl;
 import com.noirix.repository.impl.UserRepositoryImpl;
+import org.apache.commons.io.IOUtils;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.Collections;
 
 public class FrontController extends HttpServlet {
@@ -136,6 +138,32 @@ public class FrontController extends HttpServlet {
     }
   }
 
-  private void processPostRequests(HttpServletRequest req, HttpServletResponse resp)
-      throws ServletException, IOException {}
+  private void processPostRequests(HttpServletRequest req, HttpServletResponse resp) {
+    Commands commandName = Commands.findByCommandName(req.getParameter("command"));
+    try {
+      switch (commandName) {
+        case CREATE:
+          String body = IOUtils.toString(req.getInputStream(), Charset.defaultCharset());
+          User user = new Gson().fromJson(body, User.class);
+          req.setAttribute("users", Collections.singletonList(userRepository.save(user)));
+          break;
+        case UPDATE:
+          String updateBody = IOUtils.toString(req.getInputStream(), Charset.defaultCharset());
+          User updateUser = new Gson().fromJson(updateBody, User.class);
+          req.setAttribute("users", Collections.singletonList(userRepository.update(updateUser)));
+          break;
+
+        case DELETE:
+          String id = req.getParameter("id");
+          long userId = Long.parseLong(id);
+          userRepository.delete(userRepository.findById(userId));
+          req.setAttribute("users", userRepository.findAll());
+          break;
+        default:
+          break;
+      }
+    } catch (Exception e) {
+      throw new RuntimeException(e.getMessage());
+    }
+  }
 }

@@ -229,7 +229,7 @@ public class UserRepositoryImpl implements UserRepository {
 
   @Override
   public Long delete(User user) {
-    final String findAIdQuery = "delete * from m_users where id = ?";
+    final String findIdQuery = "delete from m_users where id = ?";
 
     Connection connection;
     PreparedStatement statement;
@@ -247,14 +247,14 @@ public class UserRepositoryImpl implements UserRepository {
               reader.getProperty(DATABASE_URL),
               reader.getProperty(DATABASE_LOGIN),
               reader.getProperty(DATABASE_PASSWORD));
-      statement = connection.prepareStatement(findAIdQuery);
+      statement = connection.prepareStatement(findIdQuery);
       statement.setLong(1, user.getId());
 
       int deletedRows = statement.executeUpdate();
       return (long) deletedRows;
     } catch (SQLException e) {
       System.err.println(e.getMessage());
-      throw new RuntimeException("SQL Isses!");
+      throw new RuntimeException("SQL Isses in delete() method!");
     }
   }
 }

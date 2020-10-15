@@ -7,33 +7,32 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import java.sql.Timestamp;
 import java.util.Date;
 
-//@Data
+// @Data
 @Setter
 @Getter
-//@ToString
+// @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
-    private Long id;
+  private Long id;
 
-    private String name;
+  private String name;
 
-    private String surname;
+  private String surname;
 
-    private Date birthDate;
+  private Date birthDate;
 
-    private Gender gender = Gender.NOT_SELECTED;
+  private Gender gender = Gender.NOT_SELECTED;
 
-    private Timestamp created;
+  private Timestamp created = new Timestamp(System.currentTimeMillis());
 
-    private Timestamp changed;
+  private Timestamp changed = new Timestamp(System.currentTimeMillis());
 
-    private Float weight;
+  private Float weight;
 
   @Override
   public String toString() {
     return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
   }
-
 }

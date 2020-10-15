@@ -158,8 +158,9 @@ public class CarRepositoryImpl implements CarRepository {
 
   @Override
   public Car update(Car object) {
-    final String updateQuery = "update m_cars set model = ?, creation_year = ?, user_id = ?, price = ?, " +
-            "color = ? where id = ?";
+    final String updateQuery =
+        "update m_cars set model = ?, creation_year = ?, user_id = ?, price = ?, "
+            + "color = ? where id = ?";
     Connection connection;
     PreparedStatement preparedStatement;
 
@@ -205,7 +206,6 @@ public class CarRepositoryImpl implements CarRepository {
     final String deleteQuery = "delete from m_cars where id=" + car.getId();
     Connection connection;
     Statement statement;
-    ResultSet rs;
 
     try {
       Class.forName(POSTGRES_DRIVER_NAME);

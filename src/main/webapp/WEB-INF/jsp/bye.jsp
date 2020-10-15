@@ -41,7 +41,9 @@ Bye page<br>
         </c:forEach>
     </table>
 </div>
-
+<div>
+    ${singleUser}
+</div>
 
 
 <%--${userNames}<br>--%>

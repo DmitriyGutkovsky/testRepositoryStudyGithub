@@ -9,7 +9,11 @@ import org.apache.commons.lang3.StringUtils;
 public enum Commands {
   FIND_BY_ID("findById"),
   FIND_ALL("findAll"),
+  CREATE("create"), // save?
+  DELETE("delete"),
+  UPDATE("update"),
   DEFAULT("findAll");
+
 
   private String commandName;
 
