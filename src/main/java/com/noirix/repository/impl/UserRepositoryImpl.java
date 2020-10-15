@@ -164,7 +164,7 @@ public class UserRepositoryImpl implements UserRepository {
       if (rs.next()) {
         return parseResultSet(rs);
       } else {
-        throw new EntityNotFoundException("User with ID:" + key + "not found");
+        throw new EntityNotFoundException("User with ID:" + key + " not found");
       }
 
     } catch (SQLException e) {

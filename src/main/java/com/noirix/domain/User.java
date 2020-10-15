@@ -6,12 +6,11 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.Objects;
 
 //@Data
 @Setter
 @Getter
-@ToString
+//@ToString
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
@@ -32,9 +31,9 @@ public class User {
 
     private Float weight;
 
-//  @Override
-//  public String toString() {
-//    return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
-//  }
+  @Override
+  public String toString() {
+    return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
+  }
 
 }

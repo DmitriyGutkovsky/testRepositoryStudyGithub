@@ -1,28 +1,62 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: gutko
-  Date: 29.09.20
-  Time: 11:16
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <html>
 <head>
     <title>Bye</title>
 </head>
 <body>
 Bye page<br>
-${userName}<br>
-${carModel}<br>
-findCarById<br>
-${findCarById}<br>
-This item will be deleted now:<br>
-${check_delete}<br>
-Test method save:<br>
-${saved_object}
-<br>
-Test method update<br>
-${check_update}
+
+<div>
+    <h1>System Users</h1>
+</div>
+<div>
+    <table>
+        <tr>
+            <td>User Id</td>
+            <td>User Name</td>
+            <td>User Surname</td>
+            <td>Birth date</td>
+            <td>Gender</td>
+            <td>Created</td>
+            <td>Changed</td>
+            <td>Weight</td>
+            <td>Edit</td>
+            <td>Delete</td>
+        </tr>
+        <c:forEach var="user" items="${users}">
+            <tr>
+                <td>${user.id}</td>
+                <td>${user.name}</td>
+                <td>${user.surname}</td>
+                <td>${user.birthDate}</td>
+                <td>${user.gender}</td>
+                <td>${user.created}</td>
+                <td>${user.changed}</td>
+                <td>${user.weight}</td>
+                <td><button>Edit</button></td>
+                <td><button>Delete</button></td>
+            </tr>
+        </c:forEach>
+    </table>
+</div>
+
+
+
+<%--${userNames}<br>--%>
+<%--${userName}<br>--%>
+
+<%--${carModel}<br>--%>
+<%--findCarById<br>--%>
+<%--${findCarById}<br>--%>
+<%--This item will be deleted now:<br>--%>
+<%--${check_delete}<br>--%>
+<%--Test method save:<br>--%>
+<%--${saved_object}--%>
+<%--<br>--%>
+<%--Test method update<br>--%>
+<%--${check_update}--%>
 <h4>
     Go to
     <a href="main"> main.jsp </a>

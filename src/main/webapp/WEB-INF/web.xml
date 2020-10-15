@@ -46,9 +46,14 @@
     </servlet>
 
     <servlet>
-        <servlet-name>Error500</servlet-name>
-        <jsp-file>/WEB-INF/errors/500.jsp</jsp-file>
+        <servlet-name>Error</servlet-name>
+        <jsp-file>/WEB-INF/jsp/error.jsp</jsp-file>
     </servlet>
+
+<!--    <servlet>-->
+<!--        <servlet-name>Error500</servlet-name>-->
+<!--        <jsp-file>/WEB-INF/errors/500.jsp</jsp-file>-->
+<!--    </servlet>-->
 
     <servlet-mapping>
         <servlet-name>HelloWeb</servlet-name>
@@ -68,9 +73,14 @@
     </servlet-mapping>
 
     <servlet-mapping>
-        <servlet-name>Error500</servlet-name>
-        <url-pattern>/error500</url-pattern>
+        <servlet-name>Error</servlet-name>
+        <url-pattern>/error</url-pattern>
     </servlet-mapping>
+
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>Error500</servlet-name>-->
+<!--        <url-pattern>/error500</url-pattern>-->
+<!--    </servlet-mapping>-->
     
     <filter>
         <filter-name>CharsetFilter</filter-name>
