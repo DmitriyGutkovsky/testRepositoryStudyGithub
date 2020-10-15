@@ -138,7 +138,7 @@ public class UserRepositoryImpl implements UserRepository {
 
   @Override
   public User findById(Long key) {
-    final String findAIdQuery = "select * from m_users where id = ?";
+    final String findIdQuery = "select * from m_users where id = ?";
 
     Connection connection;
     PreparedStatement statement;
@@ -157,7 +157,7 @@ public class UserRepositoryImpl implements UserRepository {
               reader.getProperty(DATABASE_URL),
               reader.getProperty(DATABASE_LOGIN),
               reader.getProperty(DATABASE_PASSWORD));
-      statement = connection.prepareStatement(findAIdQuery);
+      statement = connection.prepareStatement(findIdQuery);
       statement.setLong(1, key);
       rs = statement.executeQuery();
 
