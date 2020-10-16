@@ -2,6 +2,7 @@ package com.noirix.controller;
 
 import com.google.gson.Gson;
 import com.noirix.controller.command.Commands;
+import com.noirix.domain.Car;
 import com.noirix.domain.User;
 import com.noirix.repository.CarRepository;
 import com.noirix.repository.UserRepository;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Collections;
+import java.util.stream.Collectors;
 
 public class FrontController extends HttpServlet {
   public static final UserRepository userRepository = new UserRepositoryImpl();
@@ -30,6 +32,7 @@ public class FrontController extends HttpServlet {
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     processGetRequests(req, resp);
+//    doRequest(req, resp);
   }
 
   @Override
@@ -38,39 +41,39 @@ public class FrontController extends HttpServlet {
     processPostRequests(req, resp);
   }
 
-  //  private void doRequest(HttpServletRequest req, HttpServletResponse resp)
-  //      throws ServletException, IOException {
-  //
-  //    RequestDispatcher dispatcher = req.getRequestDispatcher("/bye");
-  //    if (dispatcher != null) {
-  //      System.out.println("Forward will be done!");
-  //      req.setAttribute("userName", userRepository.findAll().stream().map(User::getName)
-  //              .collect(Collectors.joining(",")));
-  ////      req.setAttribute("carModel",
-  // carRepository.findAll().stream().map(Car::getModel).collect(Collectors.joining(", ")));
-  ////      //check method findById()
-  ////      req.setAttribute("findCarById", carRepository.findById(1l));
-  ////      //check delete() method
-  ////      req.setAttribute("check_delete", carRepository.delete(carRepository.findById(4l)));
-  ////
-  ////      //check save() method
-  ////      Car newCar = new Car();
-  ////      newCar.setModel("TEST");
-  ////      newCar.setCreationYear(2015);
-  ////      newCar.setColor("RED");
-  ////      newCar.setPrice(8500.0);
-  ////      newCar.setUser_id(1l);
-  ////
-  ////      req.setAttribute("saved_object", carRepository.save(newCar));
-  ////
-  ////      //check update() method
-  ////
-  ////      newCar.setModel("Test2-test-Test");
-  ////      newCar.setId(10l);
-  ////      req.setAttribute("check_update", carRepository.update(newCar));
-  //
-  //      dispatcher.forward(req, resp);
-  //    }
+//    private void doRequest(HttpServletRequest req, HttpServletResponse resp)
+//        throws ServletException, IOException {
+//
+//      RequestDispatcher dispatcher = req.getRequestDispatcher("/bye");
+//      if (dispatcher != null) {
+//        System.out.println("Forward will be done!");
+//        req.setAttribute("userName", userRepository.findAll().stream().map(User::getName)
+//                .collect(Collectors.joining(",")));
+//        req.setAttribute("carModel",
+//   carRepository.findAll().stream().map(Car::getModel).collect(Collectors.joining(", ")));
+//        //check method findById()
+//        req.setAttribute("findCarById", carRepository.findById(1l));
+//        //check delete() method
+//        req.setAttribute("check_delete", carRepository.delete(carRepository.findById(4l)));
+//
+//        //check save() method
+//        Car newCar = new Car();
+//        newCar.setModel("TEST");
+//        newCar.setCreationYear(2015);
+//        newCar.setColor("RED");
+//        newCar.setPrice(8500.0);
+//        newCar.setUser_id(1l);
+//
+//        req.setAttribute("saved_object", carRepository.save(newCar));
+//
+//        //check update() method
+//
+//        newCar.setModel("Test2-GUT-Test");
+//        newCar.setId(10l);
+//        req.setAttribute("check_update", carRepository.update(newCar));
+//
+//        dispatcher.forward(req, resp);
+//      }
   //
   //    //        перенаправляет на страницу bye.jsp
   //    //        RequestDispatcher dispatcher = req.getRequestDispatcher("/bye");
@@ -96,7 +99,7 @@ public class FrontController extends HttpServlet {
   //    //        RequestDispatcher requestDispatcher =
   //    // req.getRequestDispatcher("/WEB-INF/jsp/main.jsp");
   //    //        requestDispatcher.forward(req, resp);
-  //  }
+//    }
 
   private void processGetRequests(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
@@ -132,6 +135,20 @@ public class FrontController extends HttpServlet {
         // http://localhost:8080/testTomcat/FrontController?command=findById&id=5
         req.setAttribute("users", Collections.singletonList(userRepository.findById(userId)));
         req.setAttribute("singleUser", userRepository.findById(userId));
+        break;
+
+      case CAR_FIND_ALL:
+        // http://localhost:8080/testTomcat/FrontController?command=carFindAll
+        String carPage = req.getParameter("page");
+        String carLimit = req.getParameter("limit");
+        req.setAttribute("cars", carRepository.findAll());
+        break;
+      case CAR_FIND_BY_ID:
+        String carIdString = req.getParameter("id");
+        long carID = Long.parseLong(carIdString);
+        // http://localhost:8080/testTomcat/FrontController?command=carFindById&id=1
+        req.setAttribute("car", Collections.singletonList(carRepository.findById(carID)));
+//        req.setAttribute("singleUser", carRepository.findById(carID));
         break;
       default:
         break;

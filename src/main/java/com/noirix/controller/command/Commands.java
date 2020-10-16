@@ -9,10 +9,16 @@ import org.apache.commons.lang3.StringUtils;
 public enum Commands {
   FIND_BY_ID("findById"),
   FIND_ALL("findAll"),
-  CREATE("create"), // save?
+  CREATE("create"),
   DELETE("delete"),
   UPDATE("update"),
-  DEFAULT("findAll");
+  DEFAULT("findAll"),
+
+  CAR_FIND_BY_ID("carFindById"),
+  CAR_FIND_ALL("carFindAll"),
+  CAR_CREATE("carCreate"),
+  CAR_DELETE("carDelete"),
+  CAR_UPDATE("carUpdate");
 
 
   private String commandName;

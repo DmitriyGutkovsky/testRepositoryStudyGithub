@@ -148,6 +148,7 @@ public class CarRepositoryImpl implements CarRepository {
               reader.getProperty(DATABASE_LOGIN),
               reader.getProperty(DATABASE_PASSWORD));
       statement = connection.prepareStatement(findByIdQuery);
+      statement.setLong(1, key);
       rs = statement.executeQuery();
 
       if (rs.next()) {

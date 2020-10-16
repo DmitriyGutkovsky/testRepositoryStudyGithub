@@ -42,9 +42,16 @@ Bye page<br>
     </table>
 </div>
 <div>
-    ${singleUser}
+    ${singleUser}<br>
 </div>
 
+
+<div>
+    <h1>System cars</h1>
+</div>
+
+${car}<br>
+${cars}<br>
 
 <%--${userNames}<br>--%>
 <%--${userName}<br>--%>
