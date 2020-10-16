@@ -171,8 +171,12 @@ public class CarRepositoryImpl implements CarRepository {
   @Override
   public Car update(Car car) {
     final String updateQuery =
-        "update m_cars set model = ?, creation_year = ?, user_id = ?, price = ?, "
-            + "color = ? where id = ?";
+        "update m_cars set "
+                + "model = ?, "
+                + "creation_year = ?, "
+                + "user_id = ?, price = ?, "
+                + "color = ? "
+                + "where id = ?";
     Connection connection;
     PreparedStatement preparedStatement;
 

@@ -32,7 +32,7 @@ public class FrontController extends HttpServlet {
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     processGetRequests(req, resp);
-//    doRequest(req, resp);
+    //    doRequest(req, resp);
   }
 
   @Override
@@ -41,39 +41,39 @@ public class FrontController extends HttpServlet {
     processPostRequests(req, resp);
   }
 
-//    private void doRequest(HttpServletRequest req, HttpServletResponse resp)
-//        throws ServletException, IOException {
-//
-//      RequestDispatcher dispatcher = req.getRequestDispatcher("/bye");
-//      if (dispatcher != null) {
-//        System.out.println("Forward will be done!");
-//        req.setAttribute("userName", userRepository.findAll().stream().map(User::getName)
-//                .collect(Collectors.joining(",")));
-//        req.setAttribute("carModel",
-//   carRepository.findAll().stream().map(Car::getModel).collect(Collectors.joining(", ")));
-//        //check method findById()
-//        req.setAttribute("findCarById", carRepository.findById(1l));
-//        //check delete() method
-//        req.setAttribute("check_delete", carRepository.delete(carRepository.findById(4l)));
-//
-//        //check save() method
-//        Car newCar = new Car();
-//        newCar.setModel("TEST");
-//        newCar.setCreationYear(2015);
-//        newCar.setColor("RED");
-//        newCar.setPrice(8500.0);
-//        newCar.setUser_id(1l);
-//
-//        req.setAttribute("saved_object", carRepository.save(newCar));
-//
-//        //check update() method
-//
-//        newCar.setModel("Test2-GUT-Test");
-//        newCar.setId(10l);
-//        req.setAttribute("check_update", carRepository.update(newCar));
-//
-//        dispatcher.forward(req, resp);
-//      }
+  //    private void doRequest(HttpServletRequest req, HttpServletResponse resp)
+  //        throws ServletException, IOException {
+  //
+  //      RequestDispatcher dispatcher = req.getRequestDispatcher("/bye");
+  //      if (dispatcher != null) {
+  //        System.out.println("Forward will be done!");
+  //        req.setAttribute("userName", userRepository.findAll().stream().map(User::getName)
+  //                .collect(Collectors.joining(",")));
+  //        req.setAttribute("carModel",
+  //   carRepository.findAll().stream().map(Car::getModel).collect(Collectors.joining(", ")));
+  //        //check method findById()
+  //        req.setAttribute("findCarById", carRepository.findById(1l));
+  //        //check delete() method
+  //        req.setAttribute("check_delete", carRepository.delete(carRepository.findById(4l)));
+  //
+  //        //check save() method
+  //        Car newCar = new Car();
+  //        newCar.setModel("TEST");
+  //        newCar.setCreationYear(2015);
+  //        newCar.setColor("RED");
+  //        newCar.setPrice(8500.0);
+  //        newCar.setUser_id(1l);
+  //
+  //        req.setAttribute("saved_object", carRepository.save(newCar));
+  //
+  //        //check update() method
+  //
+  //        newCar.setModel("Test2-GUT-Test");
+  //        newCar.setId(10l);
+  //        req.setAttribute("check_update", carRepository.update(newCar));
+  //
+  //        dispatcher.forward(req, resp);
+  //      }
   //
   //    //        перенаправляет на страницу bye.jsp
   //    //        RequestDispatcher dispatcher = req.getRequestDispatcher("/bye");
@@ -99,7 +99,7 @@ public class FrontController extends HttpServlet {
   //    //        RequestDispatcher requestDispatcher =
   //    // req.getRequestDispatcher("/WEB-INF/jsp/main.jsp");
   //    //        requestDispatcher.forward(req, resp);
-//    }
+  //    }
 
   private void processGetRequests(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
@@ -121,7 +121,8 @@ public class FrontController extends HttpServlet {
 
   private void resolveGetRequestCommands(HttpServletRequest req, Commands commandName) {
 
-    // http://localhost:8080/testTomcat/FrontController?command=findAll&page=0&limit=10 (add offset to query)
+    // http://localhost:8080/testTomcat/FrontController?command=findAll&page=0&limit=10 (add offset
+    // to query)
     switch (commandName) {
         // http://localhost:8080/testTomcat/FrontController?command=findAll
       case FIND_ALL:
@@ -148,7 +149,6 @@ public class FrontController extends HttpServlet {
         long carID = Long.parseLong(carIdString);
         // http://localhost:8080/testTomcat/FrontController?command=carFindById&id=1
         req.setAttribute("car", Collections.singletonList(carRepository.findById(carID)));
-//        req.setAttribute("singleUser", carRepository.findById(carID));
         break;
       default:
         break;
@@ -169,12 +169,31 @@ public class FrontController extends HttpServlet {
           User updateUser = new Gson().fromJson(updateBody, User.class);
           req.setAttribute("users", Collections.singletonList(userRepository.update(updateUser)));
           break;
-
         case DELETE:
           String id = req.getParameter("id");
           long userId = Long.parseLong(id);
           userRepository.delete(userRepository.findById(userId));
           req.setAttribute("users", userRepository.findAll());
+          break;
+
+        case CAR_CREATE:
+          // http://localhost:8080/testTomcat/FrontController?command=carCreate
+          String car_body = IOUtils.toString(req.getInputStream(), Charset.defaultCharset());
+          Car car = new Gson().fromJson(car_body, Car.class);
+          req.setAttribute("cars", Collections.singletonList(carRepository.save(car)));
+          break;
+        case CAR_UPDATE:
+          // http://localhost:8080/testTomcat/FrontController?command=carUpdate
+          String carUpdateBody = IOUtils.toString(req.getInputStream(), Charset.defaultCharset());
+          Car carUpdateUser = new Gson().fromJson(carUpdateBody, Car.class);
+          req.setAttribute("cars", Collections.singletonList(carRepository.update(carUpdateUser)));
+          break;
+        case CAR_DELETE:
+          // http://localhost:8080/testTomcat/FrontController?command=carDelete&id=24
+          String carIdString = req.getParameter("id");
+          long carId = Long.parseLong(carIdString);
+          carRepository.delete(carRepository.findById(carId));
+          req.setAttribute("cars", carRepository.findAll());
           break;
         default:
           break;
