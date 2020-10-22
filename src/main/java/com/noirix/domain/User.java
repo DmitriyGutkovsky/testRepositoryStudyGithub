@@ -35,6 +35,12 @@ public class User {
 
   private Float weight;
 
+  public User(Long id, String name, String surname) {
+    this.id = id;
+    this.name = name;
+    this.surname = surname;
+  }
+
   @Override
   public String toString() {
     return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
