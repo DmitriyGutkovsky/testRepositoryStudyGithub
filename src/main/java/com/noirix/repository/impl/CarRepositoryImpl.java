@@ -5,6 +5,7 @@ import com.noirix.exception.EntityNotFoundException;
 import com.noirix.repository.CarRepository;
 import com.noirix.util.DatabasePropertiesReader;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -18,6 +19,7 @@ import java.util.Optional;
 
 import static com.noirix.util.DatabasePropertiesReader.*;
 
+@Repository
 public class CarRepositoryImpl implements CarRepository {
 
   private static final String ID = "id";

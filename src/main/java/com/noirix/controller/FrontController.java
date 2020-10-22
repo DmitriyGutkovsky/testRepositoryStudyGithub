@@ -9,6 +9,7 @@ import com.noirix.repository.UserRepository;
 import com.noirix.repository.impl.CarRepositoryImpl;
 import com.noirix.repository.impl.UserRepositoryImpl;
 import org.apache.commons.io.IOUtils;
+import org.springframework.stereotype.Controller;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,6 +21,8 @@ import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.stream.Collectors;
 
+@Controller
+//@RestController (for Spring Rest and Spring MVC)
 public class FrontController extends HttpServlet {
   public static final UserRepository userRepository = new UserRepositoryImpl();
   public static final CarRepository carRepository = new CarRepositoryImpl();
