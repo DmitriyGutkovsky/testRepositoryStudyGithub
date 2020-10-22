@@ -16,4 +16,10 @@
         <constructor-arg index="2" value="SpringUserSurname"/>
     </bean>
 
+    <bean id="user2" class="com.noirix.domain.User">
+        <constructor-arg index="0" value="11" type="java.lang.Long"/>
+        <constructor-arg index="1" value="Dima"/>
+        <constructor-arg index="2" value="Gutkovsky"/>
+    </bean>
+
 </beans>
