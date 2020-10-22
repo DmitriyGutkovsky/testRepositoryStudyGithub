@@ -2,9 +2,12 @@ package com.noirix;
 
 import com.noirix.domain.Car;
 import com.noirix.domain.User;
+import com.noirix.repository.UserRepository;
 import com.noirix.util.DatabaseConfig;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import java.util.stream.Collectors;
 
 public class SpringContextTester {
 
@@ -45,5 +48,10 @@ public class SpringContextTester {
 
     Car beanCar = annotationConfigApplicationContext.getBean(Car.class);
     System.out.println(beanCar);
+
+    System.out.println("\n********** access to JDBC via Spring *******");
+
+    UserRepository userRepository = annotationConfigApplicationContext.getBean(UserRepository.class);
+    System.out.println(userRepository.findAll().stream().map(User::getName).collect(Collectors.joining(", ")));
   }
 }

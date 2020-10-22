@@ -10,7 +10,7 @@ public class ApplicationBeans {
     @Bean
     public Car getCar(){
         return Car.builder()
-                .id(20l)
+                .id(20L)
                 .model("Tesla Model S")
                 .price(110000D)
                 .creationYear(2019)
