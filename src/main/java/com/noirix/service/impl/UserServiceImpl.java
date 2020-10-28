@@ -1,7 +1,7 @@
 package com.noirix.service.impl;
 
 import com.noirix.domain.User;
-import com.noirix.repository.impl.UserRepositoryImpl;
+import com.noirix.repository.UserRepository;
 import com.noirix.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,12 +13,12 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     //short form make Autowired
-    private final UserRepositoryImpl userRepository;
+    private final UserRepository userRepository;
 
     /* the same
     private UserRepositoryImpl userRepository;
 
-    public UserServiceImpl(UserRepositoryImpl userRepository) {
+    public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

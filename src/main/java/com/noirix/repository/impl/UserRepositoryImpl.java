@@ -3,6 +3,7 @@ package com.noirix.repository.impl;
 import com.noirix.domain.Gender;
 import com.noirix.domain.User;
 import com.noirix.exception.EntityNotFoundException;
+import com.noirix.repository.UserColumns;
 import com.noirix.repository.UserRepository;
 import com.noirix.util.DatabasePropertiesReader;
 import org.springframework.stereotype.Repository;
@@ -26,14 +27,14 @@ import static com.noirix.util.DatabasePropertiesReader.DATABASE_URL;
 @Repository
 public class UserRepositoryImpl implements UserRepository {
 
-  private static final String ID = "id";
-  private static final String NAME = "name";
-  private static final String SURNAME = "surname";
-  private static final String BIRTH_DATE = "birth_date";
-  private static final String GENDER = "gender";
-  private static final String CREATED = "created";
-  private static final String CHANGED = "changed";
-  private static final String WEIGHT = "weight";
+//  private static final String ID = "id";
+//  private static final String NAME = "name";
+//  private static final String SURNAME = "surname";
+//  private static final String BIRTH_DATE = "birth_date";
+//  private static final String GENDER = "gender";
+//  private static final String CREATED = "created";
+//  private static final String CHANGED = "changed";
+//  private static final String WEIGHT = "weight";
 
   public static final DatabasePropertiesReader reader = DatabasePropertiesReader.getInstance();
 
@@ -133,14 +134,14 @@ public class UserRepositoryImpl implements UserRepository {
 
   private User parseResultSet(ResultSet rs) throws SQLException {
     User user = new User();
-    user.setId(rs.getLong(ID));
-    user.setName(rs.getString(NAME));
-    user.setSurname(rs.getString(SURNAME));
-    user.setBirthDate(rs.getDate(BIRTH_DATE));
-    user.setGender(Gender.valueOf(rs.getString(GENDER)));
-    user.setCreated(rs.getTimestamp(CREATED));
-    user.setChanged(rs.getTimestamp(CHANGED));
-    user.setWeight(rs.getFloat(WEIGHT));
+    user.setId(rs.getLong(UserColumns.ID));
+    user.setName(rs.getString(UserColumns.NAME));
+    user.setSurname(rs.getString(UserColumns.SURNAME));
+    user.setBirthDate(rs.getDate(UserColumns.BIRTH_DATE));
+    user.setGender(Gender.valueOf(rs.getString(UserColumns.GENDER)));
+    user.setCreated(rs.getTimestamp(UserColumns.CREATED));
+    user.setChanged(rs.getTimestamp(UserColumns.CHANGED));
+    user.setWeight(rs.getFloat(UserColumns.WEIGHT));
     return user;
   }
 
