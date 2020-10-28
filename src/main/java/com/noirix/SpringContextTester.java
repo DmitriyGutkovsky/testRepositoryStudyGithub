@@ -3,6 +3,7 @@ package com.noirix;
 import com.noirix.domain.Car;
 import com.noirix.domain.User;
 import com.noirix.repository.UserRepository;
+import com.noirix.service.UserService;
 import com.noirix.util.DatabaseConfig;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -56,5 +57,15 @@ public class SpringContextTester {
 //
 //    UserRepository userRepository = annotationConfigApplicationContext.getBean(UserRepository.class);
 //    System.out.println(userRepository.findAll().stream().map(User::getName).collect(Collectors.joining(", ")));
+
+    AnnotationConfigApplicationContext annotationConfigApplicationContext
+            = new AnnotationConfigApplicationContext("com.noirix");
+
+    UserService userService = annotationConfigApplicationContext.getBean(UserService.class);
+
+    System.out.println(userService.findAll().stream().map(User::getName)
+            .collect(Collectors.joining(", ")));
+
+
   }
 }
