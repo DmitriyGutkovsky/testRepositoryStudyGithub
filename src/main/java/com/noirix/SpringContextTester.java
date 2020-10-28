@@ -13,22 +13,22 @@ import java.util.stream.Collectors;
 public class SpringContextTester {
 
   public static void main(String[] args) {
-    ClassPathXmlApplicationContext classPathXmlApplicationContext =
-        new ClassPathXmlApplicationContext("classpath:application-context.xml");
-
-    User user1 = (User) classPathXmlApplicationContext.getBean("user1");
-    User user2 = (User) classPathXmlApplicationContext.getBean("user2");
-
-    System.out.println(user1.getId());
-    System.out.println(user1.getName());
-    System.out.println(user1.getSurname());
-    System.out.println(user1.getUsercar());
-
-
-    System.out.println(user2.getId());
-    System.out.println(user2.getName());
-    System.out.println(user2.getSurname());
-    System.out.println(user2.getUsercar());
+//    ClassPathXmlApplicationContext classPathXmlApplicationContext =
+//        new ClassPathXmlApplicationContext("classpath:application-context.xml");
+//
+//    User user1 = (User) classPathXmlApplicationContext.getBean("user1");
+//    User user2 = (User) classPathXmlApplicationContext.getBean("user2");
+//
+//    System.out.println(user1.getId());
+//    System.out.println(user1.getName());
+//    System.out.println(user1.getSurname());
+//    System.out.println(user1.getUsercar());
+//
+//
+//    System.out.println(user2.getId());
+//    System.out.println(user2.getName());
+//    System.out.println(user2.getSurname());
+//    System.out.println(user2.getUsercar());
 
     System.out.println("\n*************************************");
 

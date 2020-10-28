@@ -46,15 +46,15 @@ public class User {
   //standard JSR-330 . Java-annotations  - some as @Autowire and @Qualifier
 //  @Inject
 //  @Named("car1")
-  private Car usercar;
+//  private Car usercar;
 
   // Injection via constructor
   @Autowired
 // (if there are more than one constructor in class, it is necessary to specify
 //    or do not use other constructors with autowire, because we don't know how bean will be created)
-  public User(Car usercar){
-    this.usercar = usercar;
-  }
+//  public User(Car usercar){
+//    this.usercar = usercar;
+//  }
 
 //  public User(Long id, String name, String surname) {
 //    this.id = id;
