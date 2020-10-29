@@ -1,7 +1,9 @@
 package com.noirix;
 
+import com.noirix.domain.Car;
 import com.noirix.domain.Gender;
 import com.noirix.domain.User;
+import com.noirix.service.CarService;
 import com.noirix.service.UserService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -60,15 +62,15 @@ public class SpringContextTester {
     AnnotationConfigApplicationContext annotationConfigApplicationContext
             = new AnnotationConfigApplicationContext("com.noirix");
 
-    UserService userService = annotationConfigApplicationContext.getBean(UserService.class);
-
-    System.out.println(userService.findAll().stream().map(User::getName)
-            .collect(Collectors.joining(", ")));
-
-    System.out.println(userService.findById(2l));
-    System.out.println("*********************");
-    System.out.println(userService.search("Slava"));
-    System.out.println("*********************");
+//    UserService userService = annotationConfigApplicationContext.getBean(UserService.class);
+//
+//    System.out.println(userService.findAll().stream().map(User::getName)
+//            .collect(Collectors.joining(", ")));
+//
+//    System.out.println(userService.findById(2l));
+//    System.out.println("*********************");
+//    System.out.println(userService.search("Slava"));
+//    System.out.println("*********************");
 //    User userForSave =
 //            User.builder()
 //                    .name("TestForDelete")
@@ -81,20 +83,34 @@ public class SpringContextTester {
 //                    .build();
 //
 //        System.out.println(userService.save(userForSave));
-    User userForUpdate =
-            User.builder()
-                    .name("TestForUpdate")
-                    .surname("will be deleted")
-                    .birthDate(new Date())
-                    .created(new Timestamp(new Date().getTime()))
-                    .changed(new Timestamp(new Date().getTime()))
-                    .gender(Gender.MALE)
-                    .weight(90f)
-                    .id(13l)
+//    User userForUpdate =
+//            User.builder()
+//                    .name("TestForUpdate")
+//                    .surname("will be deleted")
+//                    .birthDate(new Date())
+//                    .created(new Timestamp(new Date().getTime()))
+//                    .changed(new Timestamp(new Date().getTime()))
+//                    .gender(Gender.MALE)
+//                    .weight(90f)
+//                    .id(13l)
+//                    .build();
+//
+//    System.out.println(userService.update(userForUpdate));
+//
+//    System.out.println(userService.delete(userForUpdate));
+
+    CarService carService = annotationConfigApplicationContext.getBean(CarService.class);
+
+        Car carForSave =
+            Car.builder()
+                    .model("Ferrari")
+                    .creationYear(2019)
+                    .color("red")
+                    .price(2000000d)
+                    .userId(2l)
                     .build();
 
-    System.out.println(userService.update(userForUpdate));
+        System.out.println(carService.save(carForSave));
 
-    System.out.println(userService.delete(userForUpdate));
   }
 }

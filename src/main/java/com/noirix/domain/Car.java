@@ -24,7 +24,7 @@ public class Car {
 
     private  int creationYear;
 
-    private Long user_id;
+    private Long userId;
 
     private Double price;
 

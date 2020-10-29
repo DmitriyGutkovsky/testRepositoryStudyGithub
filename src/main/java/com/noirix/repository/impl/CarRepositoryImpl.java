@@ -4,7 +4,6 @@ import com.noirix.domain.Car;
 import com.noirix.exception.EntityNotFoundException;
 import com.noirix.repository.CarRepository;
 import com.noirix.util.DatabasePropertiesReader;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -36,7 +35,7 @@ public class CarRepositoryImpl implements CarRepository {
     car.setId(rs.getLong(ID));
     car.setModel(rs.getString(MODEL));
     car.setCreationYear(rs.getInt(CREATION_YEAR));
-    car.setUser_id(rs.getLong(USER_ID));
+    car.setUserId(rs.getLong(USER_ID));
     car.setPrice(rs.getDouble(PRICE));
     car.setColor(rs.getString(COLOR));
     return car;
@@ -75,7 +74,7 @@ public class CarRepositoryImpl implements CarRepository {
 
       preparedStatement.setString(1, car.getModel());
       preparedStatement.setInt(2, car.getCreationYear());
-      preparedStatement.setLong(3, car.getUser_id());
+      preparedStatement.setLong(3, car.getUserId());
       preparedStatement.setDouble(4, car.getPrice());
       preparedStatement.setString(5, car.getColor());
 
@@ -203,7 +202,7 @@ public class CarRepositoryImpl implements CarRepository {
       preparedStatement = connection.prepareStatement(updateQuery);
       preparedStatement.setString(1, car.getModel());
       preparedStatement.setInt(2, car.getCreationYear());
-      preparedStatement.setLong(3, car.getUser_id());
+      preparedStatement.setLong(3, car.getUserId());
       preparedStatement.setDouble(4, car.getPrice());
       preparedStatement.setString(5, car.getColor());
       preparedStatement.setLong(6, car.getId());
