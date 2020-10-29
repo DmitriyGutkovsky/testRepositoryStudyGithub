@@ -74,8 +74,28 @@ public class CarRepositoryJdbcTemplateImpl implements CarRepository {
     }
 
     @Override
-    public Car update(Car object) {
-        return null;
+    public Car update(Car car) {
+        final String updateQuery =
+                "update m_cars "
+                        + "set " +
+                        "model = :model, " +
+                        "creation_year = :creationYear, " +
+                        "user_id = :userId, " +
+                        "price = :price, " +
+                        "color = :color " +
+                        "where id = :carId";
+
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("model",car.getModel());
+        params.addValue("creationYear",car.getCreationYear());
+        params.addValue("userId",car.getUserId());
+        params.addValue("price",car.getPrice());
+        params.addValue("color",car.getColor());
+        params.addValue("carId",car.getId());
+
+        namedParameterJdbcTemplate.update(updateQuery, params);
+
+    return findById(car.getId());
     }
 
     @Override
