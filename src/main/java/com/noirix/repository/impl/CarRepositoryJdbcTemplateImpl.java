@@ -1,6 +1,7 @@
 package com.noirix.repository.impl;
 
 import com.noirix.domain.Car;
+import com.noirix.repository.CarColumns;
 import com.noirix.repository.CarRepository;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -9,6 +10,8 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -59,7 +62,10 @@ public class CarRepositoryJdbcTemplateImpl implements CarRepository {
 
     @Override
     public Car findById(Long key) {
-        return null;
+        MapSqlParameterSource param = new MapSqlParameterSource();
+        param.addValue("carId", key);
+        return namedParameterJdbcTemplate.queryForObject(
+                "select * from m_cars where id = :carId", param, this::getCarRowMapper);
     }
 
     @Override
@@ -75,6 +81,20 @@ public class CarRepositoryJdbcTemplateImpl implements CarRepository {
     @Override
     public Long delete(Car object) {
         return null;
+    }
+
+    private Car getCarRowMapper(ResultSet rs, int i) throws SQLException {
+        Car car = new Car();
+
+        car.setId(rs.getLong(CarColumns.ID));
+        car.setModel(rs.getString(CarColumns.MODEL));
+        car.setCreationYear(rs.getInt(CarColumns.CREATION_YEAR));
+        car.setUserId(rs.getLong(CarColumns.USER_ID));
+        car.setPrice(rs.getDouble(CarColumns.PRICE));
+        car.setColor(rs.getString(CarColumns.COLOR));
+
+
+        return car;
     }
 
 }

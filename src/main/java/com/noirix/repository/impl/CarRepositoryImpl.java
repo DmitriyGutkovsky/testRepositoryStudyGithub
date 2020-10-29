@@ -2,6 +2,7 @@ package com.noirix.repository.impl;
 
 import com.noirix.domain.Car;
 import com.noirix.exception.EntityNotFoundException;
+import com.noirix.repository.CarColumns;
 import com.noirix.repository.CarRepository;
 import com.noirix.util.DatabasePropertiesReader;
 import org.springframework.stereotype.Repository;
@@ -21,23 +22,23 @@ import static com.noirix.util.DatabasePropertiesReader.*;
 @Repository
 public class CarRepositoryImpl implements CarRepository {
 
-  private static final String ID = "id";
-  private static final String MODEL = "model";
-  private static final String CREATION_YEAR = "creation_year";
-  private static final String USER_ID = "user_id";
-  private static final String PRICE = "price";
-  private static final String COLOR = "color";
+//  private static final String ID = "id";
+//  private static final String MODEL = "model";
+//  private static final String CREATION_YEAR = "creation_year";
+//  private static final String USER_ID = "user_id";
+//  private static final String PRICE = "price";
+//  private static final String COLOR = "color";
 
   public static final DatabasePropertiesReader reader = DatabasePropertiesReader.getInstance();
 
   private Car parseResultSet(ResultSet rs) throws SQLException {
     Car car = new Car();
-    car.setId(rs.getLong(ID));
-    car.setModel(rs.getString(MODEL));
-    car.setCreationYear(rs.getInt(CREATION_YEAR));
-    car.setUserId(rs.getLong(USER_ID));
-    car.setPrice(rs.getDouble(PRICE));
-    car.setColor(rs.getString(COLOR));
+    car.setId(rs.getLong(CarColumns.ID));
+    car.setModel(rs.getString(CarColumns.MODEL));
+    car.setCreationYear(rs.getInt(CarColumns.CREATION_YEAR));
+    car.setUserId(rs.getLong(CarColumns.USER_ID));
+    car.setPrice(rs.getDouble(CarColumns.PRICE));
+    car.setColor(rs.getString(CarColumns.COLOR));
     return car;
   }
 

@@ -103,7 +103,7 @@ public class SpringContextTester {
 
         Car carForSave =
             Car.builder()
-                    .model("Ferrari")
+                    .model("Ferrari for FindById")
                     .creationYear(2019)
                     .color("red")
                     .price(2000000d)
