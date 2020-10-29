@@ -16,4 +16,6 @@ public interface UserService {
 
     User update(User user);
 
+    Long delete(User object);
+
 }

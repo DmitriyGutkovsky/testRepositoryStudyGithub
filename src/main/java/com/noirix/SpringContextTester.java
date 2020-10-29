@@ -71,7 +71,7 @@ public class SpringContextTester {
     System.out.println("*********************");
 //    User userForSave =
 //            User.builder()
-//                    .name("Test")
+//                    .name("TestForDelete")
 //                    .surname("TestPerson")
 //                    .birthDate(new Date())
 //                    .created(new Timestamp(new Date().getTime()))
@@ -79,20 +79,22 @@ public class SpringContextTester {
 //                    .gender(Gender.MALE)
 //                    .weight(90f)
 //                    .build();
-
-    //    System.out.println(userService.save(userForSave));
+//
+//        System.out.println(userService.save(userForSave));
     User userForUpdate =
             User.builder()
                     .name("TestForUpdate")
-                    .surname("TestPerson")
+                    .surname("will be deleted")
                     .birthDate(new Date())
                     .created(new Timestamp(new Date().getTime()))
                     .changed(new Timestamp(new Date().getTime()))
                     .gender(Gender.MALE)
                     .weight(90f)
-                    .id(12l)
+                    .id(13l)
                     .build();
 
     System.out.println(userService.update(userForUpdate));
+
+    System.out.println(userService.delete(userForUpdate));
   }
 }

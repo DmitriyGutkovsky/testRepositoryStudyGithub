@@ -136,7 +136,13 @@ public class UserRepositoryJdbcTemplateImpl implements UserRepository {
 
   @Override
   public Long delete(User object) {
-    return null;
+    final String deleteQuery = "delete from m_users where id = :userId";
+    MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
+    mapSqlParameterSource.addValue("userId", object.getId());
+    long deletedId = object.getId();
+    int deletedRow = namedParameterJdbcTemplate.update(deleteQuery, mapSqlParameterSource);
+//    return (long) deletedRow; // returns number of deleted rows
+    return deletedId; // returns deleted id
   }
 
   private User getUserRowMapper(ResultSet rs, int i) throws SQLException{

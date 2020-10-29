@@ -238,7 +238,7 @@ public class UserRepositoryImpl implements UserRepository {
 
   @Override
   public Long delete(User user) {
-    final String findIdQuery = "delete from m_users where id = ?";
+    final String deleteQuery = "delete from m_users where id = ?";
 
     Connection connection;
     PreparedStatement statement;
@@ -256,7 +256,7 @@ public class UserRepositoryImpl implements UserRepository {
               reader.getProperty(DATABASE_URL),
               reader.getProperty(DATABASE_LOGIN),
               reader.getProperty(DATABASE_PASSWORD));
-      statement = connection.prepareStatement(findIdQuery);
+      statement = connection.prepareStatement(deleteQuery);
       statement.setLong(1, user.getId());
 
       int deletedRows = statement.executeUpdate();
