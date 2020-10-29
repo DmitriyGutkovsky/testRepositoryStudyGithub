@@ -9,12 +9,14 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 // @RequiredArgsConstructor
@@ -54,7 +56,29 @@ public class UserRepositoryJdbcTemplateImpl implements UserRepository {
 
   @Override
   public User save(User object) {
-    return null;
+    final String saveQuery =
+            "insert into m_users (name, surname, birth_date, gender, created, changed, weight) "
+                    + "values (:name, :surname, :birthDate, :gender, :created, :changed, :weight);";
+    final String createQuery =
+            "insert into m_users (name, surname, birth_date, gender, created, changed, weight) " +
+            "values (:name, :surname, :birthDate, :gender, :created, :changed, :weight);";
+
+    GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
+
+    MapSqlParameterSource params = new MapSqlParameterSource();
+    params.addValue("name", object.getName());
+    params.addValue("surname", object.getSurname());
+    params.addValue("birthDate", object.getBirthDate());
+    params.addValue("gender", object.getGender().name());
+    params.addValue("created", object.getCreated());
+    params.addValue("changed", object.getChanged());
+    params.addValue("weight", object.getWeight());
+
+    namedParameterJdbcTemplate.update(saveQuery,params,keyHolder, new String[]{"id"}); // column for primary key, param: new String[]{"id"}
+
+    long value = Objects.requireNonNull(keyHolder.getKey()).longValue();
+
+    return findById(value);
   }
 
   @Override

@@ -1,9 +1,12 @@
 package com.noirix;
 
+import com.noirix.domain.Gender;
 import com.noirix.domain.User;
 import com.noirix.service.UserService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.stream.Collectors;
 
 public class SpringContextTester {
@@ -65,5 +68,19 @@ public class SpringContextTester {
     System.out.println(userService.findById(2l));
     System.out.println("*********************");
     System.out.println(userService.search("Slava"));
+    System.out.println("*********************");
+    User userForSave =
+            User.builder()
+                    .name("Test")
+                    .surname("TestPerson")
+                    .birthDate(new Date())
+                    .created(new Timestamp(new Date().getTime()))
+                    .changed(new Timestamp(new Date().getTime()))
+                    .gender(Gender.MALE)
+                    .weight(90f)
+                    .build();
+
+    System.out.println(userService.save(userForSave));
+
   }
 }
