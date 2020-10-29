@@ -66,6 +66,6 @@ public class SpringContextTester {
     System.out.println(userService.findAll().stream().map(User::getName)
             .collect(Collectors.joining(", ")));
 
-
+    System.out.println(userService.findById(2l));
   }
 }
