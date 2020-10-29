@@ -14,4 +14,6 @@ public interface UserService {
 
     List<User> search(String query);
 
+    User update(User user);
+
 }

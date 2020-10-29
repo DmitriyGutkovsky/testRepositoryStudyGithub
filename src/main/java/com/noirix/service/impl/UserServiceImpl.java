@@ -46,4 +46,9 @@ public class UserServiceImpl implements UserService {
     public List<User> search(String query) {
         return userRepository.search(query); //Ctrl+Alb+B - go to implementation of method
     }
+
+    @Override
+    public User update(User user) {
+        return userRepository.update(user);
+    }
 }

@@ -58,10 +58,7 @@ public class UserRepositoryJdbcTemplateImpl implements UserRepository {
   public User save(User object) {
     final String saveQuery =
             "insert into m_users (name, surname, birth_date, gender, created, changed, weight) "
-                    + "values (:name, :surname, :birthDate, :gender, :created, :changed, :weight);";
-    final String createQuery =
-            "insert into m_users (name, surname, birth_date, gender, created, changed, weight) " +
-            "values (:name, :surname, :birthDate, :gender, :created, :changed, :weight);";
+                    + "values (:name, :surname, :birthDate, :gender, :created, :changed, :weight)";
 
     GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -110,7 +107,31 @@ public class UserRepositoryJdbcTemplateImpl implements UserRepository {
 
   @Override
   public User update(User object) {
-    return null;
+    final String updateQuery =
+            "update m_users "
+                    + "set " +
+                    "name = :name, " +
+                    "surname = :surname, " +
+                    "birth_date = :birthDate, " +
+                    "gender = :gender, " +
+                    "created = :created, " +
+                    "changed = :changed, " +
+                    "weight = :weight " +
+                    "where id = :userId";
+
+    MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
+    mapSqlParameterSource.addValue("name", object.getName());
+    mapSqlParameterSource.addValue("surname", object.getSurname());
+    mapSqlParameterSource.addValue("birthDate", object.getBirthDate());
+    mapSqlParameterSource.addValue("gender", object.getGender().name());
+    mapSqlParameterSource.addValue("created", object.getCreated());
+    mapSqlParameterSource.addValue("changed", object.getChanged());
+    mapSqlParameterSource.addValue("weight", object.getWeight());
+    mapSqlParameterSource.addValue("userId", object.getId());
+
+    namedParameterJdbcTemplate.update(updateQuery,mapSqlParameterSource);
+
+    return findById(object.getId());
   }
 
   @Override

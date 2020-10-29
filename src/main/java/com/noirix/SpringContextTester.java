@@ -69,18 +69,30 @@ public class SpringContextTester {
     System.out.println("*********************");
     System.out.println(userService.search("Slava"));
     System.out.println("*********************");
-    User userForSave =
+//    User userForSave =
+//            User.builder()
+//                    .name("Test")
+//                    .surname("TestPerson")
+//                    .birthDate(new Date())
+//                    .created(new Timestamp(new Date().getTime()))
+//                    .changed(new Timestamp(new Date().getTime()))
+//                    .gender(Gender.MALE)
+//                    .weight(90f)
+//                    .build();
+
+    //    System.out.println(userService.save(userForSave));
+    User userForUpdate =
             User.builder()
-                    .name("Test")
+                    .name("TestForUpdate")
                     .surname("TestPerson")
                     .birthDate(new Date())
                     .created(new Timestamp(new Date().getTime()))
                     .changed(new Timestamp(new Date().getTime()))
                     .gender(Gender.MALE)
                     .weight(90f)
+                    .id(12l)
                     .build();
 
-    System.out.println(userService.save(userForSave));
-
+    System.out.println(userService.update(userForUpdate));
   }
 }
