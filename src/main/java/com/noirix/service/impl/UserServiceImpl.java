@@ -41,4 +41,9 @@ public class UserServiceImpl implements UserService {
     public User findById(Long userId) {
         return userRepository.findById(userId);
     }
+
+    @Override
+    public List<User> search(String query) {
+        return userRepository.search(query); //Ctrl+Alb+B - go to implementation of method
+    }
 }

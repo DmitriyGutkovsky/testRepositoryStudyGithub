@@ -1,12 +1,8 @@
 package com.noirix;
 
-import com.noirix.domain.Car;
 import com.noirix.domain.User;
-import com.noirix.repository.UserRepository;
 import com.noirix.service.UserService;
-import com.noirix.util.DatabaseConfig;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.stream.Collectors;
 
@@ -67,5 +63,7 @@ public class SpringContextTester {
             .collect(Collectors.joining(", ")));
 
     System.out.println(userService.findById(2l));
+    System.out.println("*********************");
+    System.out.println(userService.search("Slava"));
   }
 }

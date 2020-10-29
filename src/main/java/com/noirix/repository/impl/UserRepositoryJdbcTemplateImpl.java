@@ -35,7 +35,21 @@ public class UserRepositoryJdbcTemplateImpl implements UserRepository {
 
   @Override
   public List<User> search(String query) {
-    return null;
+    // first way using  NamedParameterJdbcTemplate
+//    MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
+//    mapSqlParameterSource.addValue("name", query);
+//    return Collections.singletonList(namedParameterJdbcTemplate.queryForObject(
+//            "select * from m_users where name = :name", mapSqlParameterSource, this::getUserRowMapper));
+
+    // second way using JdbcTemplate
+//    return Collections.singletonList(jdbcTemplate.queryForObject(
+//            "select * from m_users where name = ?", new Object[]{query}, this::getUserRowMapper));
+
+    // third way
+    return jdbcTemplate.query(
+            "select * from m_users where name like ?", new Object[]{query}, this::getUserRowMapper);
+
+
   }
 
   @Override
