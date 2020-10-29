@@ -127,7 +127,7 @@ public class SpringContextTester {
                         .id(27l)
                         .build();
 
-            System.out.println(carService.update(carForUpdate));
+            System.out.println(carService.delete(carForUpdate));
 
   }
 }
