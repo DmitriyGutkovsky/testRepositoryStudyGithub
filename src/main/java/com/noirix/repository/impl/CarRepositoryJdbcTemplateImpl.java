@@ -31,7 +31,8 @@ public class CarRepositoryJdbcTemplateImpl implements CarRepository {
 
   @Override
   public List<Car> search(String query) {
-    return null;
+    return jdbcTemplate.query(
+            "select * from m_cars where model = ?", new Object[]{query}, this::getCarRowMapper);
   }
 
   @Override

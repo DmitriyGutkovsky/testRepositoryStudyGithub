@@ -115,19 +115,20 @@ public class SpringContextTester {
 
     //        System.out.println(carService.save(carForSave));
 
-//    System.out.println(carService.findAll());
+    //    System.out.println(carService.findAll());
 
-            Car carForUpdate =
-                Car.builder()
-                        .model("Ferrari for Update")
-                        .creationYear(2019)
-                        .color("red")
-                        .price(2000000d)
-                        .userId(2l)
-                        .id(27l)
-                        .build();
+    //            Car carForUpdate =
+    //                Car.builder()
+    //                        .model("Ferrari for Update")
+    //                        .creationYear(2019)
+    //                        .color("red")
+    //                        .price(2000000d)
+    //                        .userId(2l)
+    //                        .id(27l)
+    //                        .build();
+    //
+    //            System.out.println(carService.delete(carForUpdate));
 
-            System.out.println(carService.delete(carForUpdate));
-
+    System.out.println(carService.search("Ferrari"));
   }
 }
