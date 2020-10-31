@@ -1,10 +1,13 @@
 package com.noirix.repository.impl;
 
+import com.noirix.SpringContextTester;
 import com.noirix.domain.Gender;
 import com.noirix.domain.User;
 import com.noirix.repository.UserColumns;
 import com.noirix.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -19,10 +22,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+//@Slf4j
 // @RequiredArgsConstructor
 @Repository
 @Primary
 public class UserRepositoryJdbcTemplateImpl implements UserRepository {
+
+  private static final Logger log = Logger.getLogger(UserRepositoryJdbcTemplateImpl.class);
 
   //    private final JdbcTemplate jdbcTemplate;
   //    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -37,6 +43,9 @@ public class UserRepositoryJdbcTemplateImpl implements UserRepository {
 
   @Override
   public List<User> search(String query) {
+    log.info("invoking search method()");
+    log.info(query);
+
     // first way using  NamedParameterJdbcTemplate
 //    MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
 //    mapSqlParameterSource.addValue("name", query);

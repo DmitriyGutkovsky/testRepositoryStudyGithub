@@ -5,13 +5,19 @@ import com.noirix.domain.Gender;
 import com.noirix.domain.User;
 import com.noirix.service.CarService;
 import com.noirix.service.UserService;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.log4j.Logger;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
+//@Slf4j
 public class SpringContextTester {
+
+  private static final Logger log = Logger.getLogger(SpringContextTester.class);
 
   public static void main(String[] args) {
     //    ClassPathXmlApplicationContext classPathXmlApplicationContext =
@@ -65,14 +71,15 @@ public class SpringContextTester {
     AnnotationConfigApplicationContext annotationConfigApplicationContext =
         new AnnotationConfigApplicationContext("com.noirix");
 
-    //    UserService userService = annotationConfigApplicationContext.getBean(UserService.class);
+        UserService userService = annotationConfigApplicationContext.getBean(UserService.class);
     //
     //    System.out.println(userService.findAll().stream().map(User::getName)
     //            .collect(Collectors.joining(", ")));
     //
     //    System.out.println(userService.findById(2l));
     //    System.out.println("*********************");
-    //    System.out.println(userService.search("Slava"));
+//        System.out.println(userService.search("Slava"));
+        log.info(userService.search("Slava"));
     //    System.out.println("*********************");
     //    User userForSave =
     //            User.builder()
@@ -129,6 +136,12 @@ public class SpringContextTester {
     //
     //            System.out.println(carService.delete(carForUpdate));
 
-    System.out.println(carService.search("Ferrari"));
+//    System.out.println(carService.search("Ferrari"));
+
+    List<Car> cars = carService.search("Ferrari");
+    for (Car car : cars) {
+      log.info(car.toString());
+    }
+
   }
 }
