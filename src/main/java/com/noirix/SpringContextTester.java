@@ -5,6 +5,7 @@ import com.noirix.domain.Gender;
 import com.noirix.domain.User;
 import com.noirix.service.CarService;
 import com.noirix.service.UserService;
+import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -15,9 +16,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 //@Slf4j
+@Log4j
 public class SpringContextTester {
 
-  private static final Logger log = Logger.getLogger(SpringContextTester.class);
+//  private static final Logger log = Logger.getLogger(SpringContextTester.class);
 
   public static void main(String[] args) {
     //    ClassPathXmlApplicationContext classPathXmlApplicationContext =
