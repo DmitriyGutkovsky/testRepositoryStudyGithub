@@ -21,8 +21,8 @@ public class LoggingAspect {
         log.info("Method " + joinPoint.getSignature().getName() + " finished from after advice");
     }
 
-//    @Pointcut("execution(* com.noirix.repository.impl.*Impl.*(..))")
-    @Pointcut("execution(* com.noirix.repository.impl.UserRepositoryJdbcTemplateImpl.*(..))")
+    @Pointcut("execution(* com.noirix.repository.impl.*Impl.*(..))")
+//    @Pointcut("execution(* com.noirix.repository.impl.UserRepositoryJdbcTemplateImpl.*(..))")
     public void aroundRepositoryPointcut() {
     }
 
