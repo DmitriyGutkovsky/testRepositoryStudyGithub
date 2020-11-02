@@ -31,7 +31,6 @@ public class TasksAspects {
     } else {
       counter.put(methodName, counter.get(methodName) + 1);
     }
-
-    System.out.println(counter.toString());
+    log.info(counter.toString());
   }
 }
