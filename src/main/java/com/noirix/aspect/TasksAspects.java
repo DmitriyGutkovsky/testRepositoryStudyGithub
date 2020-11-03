@@ -11,8 +11,10 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Getter
 @Component
@@ -28,8 +30,9 @@ public class TasksAspects {
   @Pointcut("execution(* com.noirix.repository.impl.*Impl.*(..))")
   public void aroundTaskAspect() {}
 
+  //First version of the method (with out method args)
   @AfterReturning(pointcut = "aroundTaskAspect()")
-  public void methodsCounter(JoinPoint jp) {
+  public void methodsCounterOne(JoinPoint jp) {
     String methodName = jp.getSignature().getName();
     if (!counter.containsKey(methodName)) {
       counter.put(methodName, 1);
@@ -39,6 +42,19 @@ public class TasksAspects {
     log.info(counter.toString());
   }
 
+  //Second ver of the method: testing getArgs()
+  @AfterReturning(pointcut = "aroundTaskAspect()")
+  public void methodsCounterTwo(JoinPoint jp) {
+    String args = Arrays.stream(jp.getArgs()).map(a -> a.toString()).collect(Collectors.joining(","));
+    String methodFullName = jp.getSignature().getName() + "(" + args + ")";
+    if (!counter.containsKey(methodFullName)) {
+      counter.put(methodFullName, 1);
+    } else {
+      counter.put(methodFullName, counter.get(methodFullName) + 1);
+    }
+    log.info(counter.toString());
+
+  }
 
   // first version for this method
   @Around("aroundTaskAspect()")
@@ -67,4 +83,6 @@ public class TasksAspects {
       log.info(watch.prettyPrint());
     }
   }
+
+
 }
