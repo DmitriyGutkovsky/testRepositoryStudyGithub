@@ -39,8 +39,10 @@ public class TasksAspects {
     log.info(counter.toString());
   }
 
+
+  // first version for this method
   @Around("aroundTaskAspect()")
-  public Object timeCounter(ProceedingJoinPoint jp) throws Throwable {
+  public Object timeCounterOne(ProceedingJoinPoint jp) throws Throwable {
     StopWatch watch = new StopWatch();
     String methodName = jp.getSignature().getName();
     watch.start();
@@ -51,5 +53,18 @@ public class TasksAspects {
     log.info("Method " + methodName +" running time: " + totalTimeSeconds + " seconds" +
             "\n\t Total time passed: " + totalTimePassed);
     return proceed;
+  }
+
+  //second version: used method prettyPrint() - Generate a string with a table describing all tasks performed
+  @Around("aroundTaskAspect()")
+  public Object timeCounterTwo(ProceedingJoinPoint jp) throws Throwable {
+    StopWatch watch = new StopWatch();
+    try{
+      watch.start(jp.toShortString());
+      return jp.proceed();
+    } finally{
+      watch.stop();
+      log.info(watch.prettyPrint());
+    }
   }
 }
