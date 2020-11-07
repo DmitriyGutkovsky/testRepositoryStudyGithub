@@ -1,10 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Hello</title>
+    <title>Goodbye</title>
 </head>
 <body>
-Hello page<br>
-${userName}
+Bye-bye!
+
+${someMessage}
+
 </body>
 </html>
