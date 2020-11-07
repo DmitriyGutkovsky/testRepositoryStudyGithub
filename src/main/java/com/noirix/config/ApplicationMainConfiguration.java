@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Import;
 @Configuration
 @ComponentScan("com.noirix")
 @EnableAspectJAutoProxy(proxyTargetClass = true)
-@Import({DatabaseConfig.class, ApplicationBeans.class})
+@Import({DatabaseConfig.class, ApplicationBeans.class, WebBeansConfig.class})
 public class ApplicationMainConfiguration {
 
 
