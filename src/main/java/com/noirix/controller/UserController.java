@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.stream.Collectors;
+
 @Controller
 @RequestMapping("/users") // all methods mapping will start with "/users"
 @RequiredArgsConstructor
@@ -30,11 +32,14 @@ public class UserController {
     }
     // will be called by URL: /users/search and RequestMethod.GET
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public ModelAndView search(@RequestParam String query){
+    public ModelAndView search(@RequestParam ("query") String queryParam,
+                               @RequestParam ("limit") Long limit ){
 
         ModelAndView result = new ModelAndView();
         result.setViewName(USER_PAGE);
-        result.addObject(USERS_LIST_ATTRIBUTE, userService.search(query));
+        result.addObject(USERS_LIST_ATTRIBUTE, userService.search(queryParam).stream()
+                .limit(limit)
+                .collect(Collectors.toList()));
 
         return  result;
     }
