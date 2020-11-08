@@ -1,5 +1,6 @@
 package com.noirix.controller;
 
+import com.noirix.controller.requests.SearchCriteria;
 import com.noirix.service.CarService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -47,6 +48,21 @@ public class CarController {
         carService.search(queryParam)
                 .stream()
                 .limit(limit)
+                .collect(Collectors.toList()));
+
+    return result;
+  }
+
+  @GetMapping(value = "/search/car")
+  public ModelAndView searchCar(@ModelAttribute SearchCriteria searchCriteria) {
+
+    ModelAndView result = new ModelAndView();
+    result.setViewName(CARS_PAGE);
+    result.addObject(
+        CARS_LIST_ATTRIBUTE,
+        carService.search(searchCriteria.getQuery())
+                .stream()
+                .limit(searchCriteria.getLimit())
                 .collect(Collectors.toList()));
 
     return result;
