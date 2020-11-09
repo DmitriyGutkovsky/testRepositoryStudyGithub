@@ -1,6 +1,7 @@
 package com.noirix.controller;
 
 import com.noirix.controller.requests.CarCreateRequest;
+import com.noirix.controller.requests.CarUpdateRequest;
 import com.noirix.controller.requests.SearchCriteria;
 import com.noirix.domain.Car;
 import com.noirix.service.CarService;
@@ -104,4 +105,34 @@ public class CarController {
 
     return result;
   }
+//
+//  @GetMapping("/update")
+//  public ModelAndView getCarUpdateRequest(@RequestParam ("id") Long id){
+//    ModelAndView result = new ModelAndView();
+//
+//    result.setViewName("updatecar");
+//    result.addObject("carUpdateRequest", new CarUpdateRequest());
+//
+//    return result;
+//  }
+//
+//  @PostMapping()
+//  public ModelAndView updateCar(@ModelAttribute CarUpdateRequest carUpdateRequest){
+//    Car car = new Car();
+//
+//    car.setColor(carUpdateRequest.getColor());
+//    car.setPrice(carUpdateRequest.getPrice());
+//    car.setUserId(carUpdateRequest.getUserId());
+//    car.setCreationYear(carUpdateRequest.getCreationYear());
+//    car.setModel(carUpdateRequest.getModel());
+//    car.setId(carUpdateRequest.getId());
+//
+//    carService.update(car);
+//
+//    ModelAndView result = new ModelAndView();
+//    result.setViewName(CARS_PAGE);
+//    result.addObject(CARS_LIST_ATTRIBUTE, carService.findAll());
+//
+//    return result;
+//  }
 }

@@ -3,9 +3,9 @@ package com.noirix.controller.requests;
 import lombok.Data;
 
 @Data
-public class CarCreateRequest {
+public class CarUpdateRequest {
 
-//    private Long id;
+    private Long id;
 
     private String model;
 
@@ -16,5 +16,4 @@ public class CarCreateRequest {
     private double price;
 
     private String color;
-
 }
