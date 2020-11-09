@@ -6,7 +6,7 @@
 <body>
 <h3>Car Details for update</h3>
 <form:form method="POST"
-           action="/cars" modelAttribute="carUpdateRequest">
+           action="/cars/update" modelAttribute="carUpdateRequest">
     <table>
         <tr>
             <td><form:label path="id">Car Id</form:label></td>

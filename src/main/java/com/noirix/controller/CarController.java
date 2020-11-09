@@ -30,6 +30,7 @@ public class CarController {
 
   public static final String CARS_LIST_ATTRIBUTE = "cars";
 
+  //  http://localhost:8080/cars
   @GetMapping
   public ModelAndView getAllCars() {
     ModelAndView result = new ModelAndView();
@@ -38,6 +39,7 @@ public class CarController {
     return result;
   }
 
+  //  http://localhost:8080/cars/40
   @GetMapping(value = "/{carId}")
   public ModelAndView getById(@PathVariable Long carId) {
     ModelAndView result = new ModelAndView();
@@ -46,6 +48,7 @@ public class CarController {
     return result;
   }
 
+  //  http://localhost:8080/cars/search?query=audi&limit=10
   @RequestMapping(value = "/search", method = RequestMethod.GET)
   public ModelAndView searchCar(
       @RequestParam("query") String queryParam, @RequestParam("limit") Long limit) {
@@ -59,6 +62,7 @@ public class CarController {
     return result;
   }
 
+  //  http://localhost:8080/cars/search/car?query=audi&limit=10
   @GetMapping(value = "/search/car")
   public ModelAndView searchCar(@ModelAttribute SearchCriteria searchCriteria) {
 
@@ -114,34 +118,35 @@ public class CarController {
     return result;
   }
 
-  //
-  //  @GetMapping("/update")
-  //  public ModelAndView getCarUpdateRequest(@RequestParam ("id") Long id){
-  //    ModelAndView result = new ModelAndView();
-  //
-  //    result.setViewName("updatecar");
-  //    result.addObject("carUpdateRequest", new CarUpdateRequest());
-  //
-  //    return result;
-  //  }
-  //
-  //  @PostMapping()
-  //  public ModelAndView updateCar(@ModelAttribute CarUpdateRequest carUpdateRequest){
-  //    Car car = new Car();
-  //
-  //    car.setColor(carUpdateRequest.getColor());
-  //    car.setPrice(carUpdateRequest.getPrice());
-  //    car.setUserId(carUpdateRequest.getUserId());
-  //    car.setCreationYear(carUpdateRequest.getCreationYear());
-  //    car.setModel(carUpdateRequest.getModel());
-  //    car.setId(carUpdateRequest.getId());
-  //
-  //    carService.update(car);
-  //
-  //    ModelAndView result = new ModelAndView();
-  //    result.setViewName(CARS_PAGE);
-  //    result.addObject(CARS_LIST_ATTRIBUTE, carService.findAll());
-  //
-  //    return result;
-  //  }
+  //  http://localhost:8080/cars/update
+  @GetMapping("/update")
+  public ModelAndView getCarUpdateRequest() {
+    ModelAndView result = new ModelAndView();
+
+    result.setViewName("updatecar");
+    result.addObject("carUpdateRequest", new CarUpdateRequest());
+
+    return result;
+  }
+
+  @PostMapping("/update")
+  public ModelAndView updateCar(@ModelAttribute CarUpdateRequest carUpdateRequest) {
+
+    Car updatedCar = new Car();
+
+    updatedCar.setColor(carUpdateRequest.getColor());
+    updatedCar.setPrice(carUpdateRequest.getPrice());
+    updatedCar.setUserId(carUpdateRequest.getUserId());
+    updatedCar.setCreationYear(carUpdateRequest.getCreationYear());
+    updatedCar.setModel(carUpdateRequest.getModel());
+    updatedCar.setId(carUpdateRequest.getId());
+
+    carService.update(updatedCar);
+
+    ModelAndView result = new ModelAndView();
+    result.setViewName(CARS_PAGE);
+    result.addObject(CARS_LIST_ATTRIBUTE, carService.findAll());
+
+    return result;
+  }
 }
