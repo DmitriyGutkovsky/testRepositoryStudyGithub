@@ -2,6 +2,7 @@ package com.noirix.controller;
 
 import com.noirix.controller.requests.SearchCriteria;
 import com.noirix.controller.requests.UserCreateRequest;
+import com.noirix.controller.requests.UserUpdateRequest;
 import com.noirix.domain.User;
 import com.noirix.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +29,7 @@ public class UserController {
   public static final String USER_PAGE = "users";
   public static final String USERS_LIST_ATTRIBUTE = "users";
 
-  // will be called by URL: /users and RequestMethod.GET
+  // will be called by URL: /users and RequestMethod.GET: http://localhost:8080/users
   //    @RequestMapping(method = RequestMethod.GET)
   @GetMapping
   public ModelAndView getAllUsers() {
@@ -86,6 +87,7 @@ public class UserController {
     return result;
   }
 
+  //    http://localhost:8080/users/create
   @GetMapping("/create")
   public ModelAndView getUserCreateRequest(){
 
@@ -138,4 +140,34 @@ public class UserController {
     return result;
   }
 
+  //  http://localhost:8080/users/update
+  @GetMapping("/update")
+  public ModelAndView updateUserRequest(){
+    ModelAndView result = new ModelAndView();
+    result.setViewName("updateuser");
+    result.addObject("userUpdateRequest", new UserUpdateRequest());
+    return result;
+  }
+
+
+  @PostMapping("/update")
+  public ModelAndView updateUser(@ModelAttribute UserUpdateRequest userUpdateRequest){
+
+    User updatedUser = userService.findById(userUpdateRequest.getId());
+
+    updatedUser.setName(userUpdateRequest.getName());
+    updatedUser.setSurname(userUpdateRequest.getSurname());
+    updatedUser.setBirthDate(userUpdateRequest.getBirthDate());
+    updatedUser.setGender(userUpdateRequest.getGender());
+    updatedUser.setWeight(userUpdateRequest.getWeight());
+    updatedUser.setChanged(userUpdateRequest.getChanged());
+
+    userService.update(updatedUser);
+
+    ModelAndView result = new ModelAndView();
+    result.setViewName(USER_PAGE);
+    result.addObject(USERS_LIST_ATTRIBUTE, userService.findAll());
+
+    return result;
+  }
 }
