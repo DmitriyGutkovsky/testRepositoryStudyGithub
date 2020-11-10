@@ -106,6 +106,7 @@ public class CarController {
     return result;
   }
 
+  //  http://localhost:8080/cars/delete?id=34
   @GetMapping("/delete")
   public ModelAndView deleteCar(@RequestParam("id") Long carId) {
 

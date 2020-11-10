@@ -10,12 +10,7 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.text.SimpleDateFormat;
@@ -128,4 +123,19 @@ public class UserController {
     sdf.setLenient(true);
     binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
   }
+
+  //    http://localhost:8080/users/delete?id=40
+  @GetMapping("/delete")
+  public ModelAndView deleteUser(@RequestParam("id") Long userId){
+    User deletedUser = userService.findById(userId);
+    userService.delete(deletedUser);
+
+    ModelAndView result = new ModelAndView();
+
+    result.setViewName(USER_PAGE);
+    result.addObject(USERS_LIST_ATTRIBUTE, userService.findAll());
+
+    return result;
+  }
+
 }

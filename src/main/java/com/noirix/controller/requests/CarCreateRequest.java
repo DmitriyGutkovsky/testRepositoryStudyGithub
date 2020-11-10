@@ -5,8 +5,6 @@ import lombok.Data;
 @Data
 public class CarCreateRequest {
 
-//    private Long id;
-
     private String model;
 
     private int creationYear;
