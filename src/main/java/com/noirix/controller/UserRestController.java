@@ -2,6 +2,7 @@ package com.noirix.controller;
 
 import com.noirix.controller.requests.SearchCriteria;
 import com.noirix.controller.requests.UserCreateRequest;
+import com.noirix.controller.requests.UserUpdateRequest;
 import com.noirix.domain.User;
 import com.noirix.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -41,6 +42,7 @@ public class UserRestController {
         return userService.search(searchCriteria.getQuery());
     }
 
+    //  http://localhost:8080/rest/users
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public User savingUser(@RequestBody UserCreateRequest userCreateRequest){
@@ -56,7 +58,41 @@ public class UserRestController {
         user.setChanged(new Timestamp(System.currentTimeMillis()));
 
         return userService.save(user);
+    }
 
+    //    http://localhost:8080/rest/users/47
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public User updateUser(@PathVariable Long id,
+                           @RequestBody UserCreateRequest userCreateRequest){
+
+        User user = userService.findById(id);
+
+        user.setGender(userCreateRequest.getGender());
+        user.setName(userCreateRequest.getName());
+        user.setSurname(userCreateRequest.getSurname());
+        user.setBirthDate(userCreateRequest.getBirthDate());
+        user.setWeight(userCreateRequest.getWeight());
+        user.setChanged(new Timestamp(System.currentTimeMillis()));
+
+        return userService.update(user);
+    }
+
+    // http://localhost:8080/rest/users ,   userId send in request body
+    @PutMapping
+    @ResponseStatus(HttpStatus.OK)
+    public User updateUser(@RequestBody UserUpdateRequest userUpdateRequest) {
+
+        User user = userService.findById(userUpdateRequest.getId());
+
+        //converters
+        user.setGender(userUpdateRequest.getGender());
+        user.setName(userUpdateRequest.getName());
+        user.setSurname(userUpdateRequest.getSurname());
+        user.setBirthDate(userUpdateRequest.getBirthDate());
+        user.setChanged(new Timestamp(System.currentTimeMillis()));
+        user.setWeight(userUpdateRequest.getWeight());
+        return userService.update(user);
     }
 
 }
