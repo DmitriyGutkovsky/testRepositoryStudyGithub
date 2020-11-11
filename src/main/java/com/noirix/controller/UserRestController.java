@@ -18,81 +18,81 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserRestController {
 
-    public final UserService userService;
+  public final UserService userService;
 
-    //http://localhost:8080/rest/users
-    @GetMapping
-    public ResponseEntity<List<User>> findAllUsers(){
-//        return ResponseEntity.ok(userService.findAll());
-        return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
-    }
+  // http://localhost:8080/rest/users
+  @GetMapping
+  public ResponseEntity<List<User>> findAllUsers() {
 
+    //        throw new RuntimeException("Test Test Controller advice for exception");
 
-    //http://localhost:8080/rest/users/5
-    @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public User findUserById(@PathVariable Long id){
-        return userService.findById(id);
-    }
+    //        return ResponseEntity.ok(userService.findAll());
+    return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
+  }
 
-    // http://localhost:8080/rest/users/search?query=Viachaslau
-    @GetMapping("/search")
-    @ResponseStatus(HttpStatus.OK)
-    public List<User> userSearch(@ModelAttribute SearchCriteria searchCriteria){
-        return userService.search(searchCriteria.getQuery());
-    }
+  // http://localhost:8080/rest/users/5
+  @GetMapping("/{id}")
+  @ResponseStatus(HttpStatus.OK)
+  public User findUserById(@PathVariable Long id) {
+    return userService.findById(id);
+  }
 
-    //  http://localhost:8080/rest/users
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public User savingUser(@RequestBody UserCreateRequest userCreateRequest){
+  // http://localhost:8080/rest/users/search?query=Viachaslau
+  @GetMapping("/search")
+  @ResponseStatus(HttpStatus.OK)
+  public List<User> userSearch(@ModelAttribute SearchCriteria searchCriteria) {
+    return userService.search(searchCriteria.getQuery());
+  }
 
-        User user = new User();
+  //  http://localhost:8080/rest/users
+  @PostMapping
+  @ResponseStatus(HttpStatus.CREATED)
+  public User savingUser(@RequestBody UserCreateRequest userCreateRequest) {
 
-        user.setGender(userCreateRequest.getGender());
-        user.setName(userCreateRequest.getName());
-        user.setSurname(userCreateRequest.getSurname());
-        user.setBirthDate(userCreateRequest.getBirthDate());
-        user.setWeight(userCreateRequest.getWeight());
-        user.setCreated(new Timestamp(System.currentTimeMillis()));
-        user.setChanged(new Timestamp(System.currentTimeMillis()));
+    User user = new User();
 
-        return userService.save(user);
-    }
+    user.setGender(userCreateRequest.getGender());
+    user.setName(userCreateRequest.getName());
+    user.setSurname(userCreateRequest.getSurname());
+    user.setBirthDate(userCreateRequest.getBirthDate());
+    user.setWeight(userCreateRequest.getWeight());
+    user.setCreated(new Timestamp(System.currentTimeMillis()));
+    user.setChanged(new Timestamp(System.currentTimeMillis()));
 
-    //    http://localhost:8080/rest/users/47
-    @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public User updateUser(@PathVariable Long id,
-                           @RequestBody UserCreateRequest userCreateRequest){
+    return userService.save(user);
+  }
 
-        User user = userService.findById(id);
+  //    http://localhost:8080/rest/users/47
+  @PutMapping("/{id}")
+  @ResponseStatus(HttpStatus.OK)
+  public User updateUser(@PathVariable Long id, @RequestBody UserCreateRequest userCreateRequest) {
 
-        user.setGender(userCreateRequest.getGender());
-        user.setName(userCreateRequest.getName());
-        user.setSurname(userCreateRequest.getSurname());
-        user.setBirthDate(userCreateRequest.getBirthDate());
-        user.setWeight(userCreateRequest.getWeight());
-        user.setChanged(new Timestamp(System.currentTimeMillis()));
+    User user = userService.findById(id);
 
-        return userService.update(user);
-    }
+    user.setGender(userCreateRequest.getGender());
+    user.setName(userCreateRequest.getName());
+    user.setSurname(userCreateRequest.getSurname());
+    user.setBirthDate(userCreateRequest.getBirthDate());
+    user.setWeight(userCreateRequest.getWeight());
+    user.setChanged(new Timestamp(System.currentTimeMillis()));
 
-    // http://localhost:8080/rest/users ,   userId send in request body
-    @PutMapping
-    @ResponseStatus(HttpStatus.OK)
-    public User updateUser(@RequestBody UserUpdateRequest userUpdateRequest) {
+    return userService.update(user);
+  }
 
-        User user = userService.findById(userUpdateRequest.getId());
+  // http://localhost:8080/rest/users ,   userId send in request body
+  @PutMapping
+  @ResponseStatus(HttpStatus.OK)
+  public User updateUser(@RequestBody UserUpdateRequest userUpdateRequest) {
 
-        //converters
-        user.setGender(userUpdateRequest.getGender());
-        user.setName(userUpdateRequest.getName());
-        user.setSurname(userUpdateRequest.getSurname());
-        user.setBirthDate(userUpdateRequest.getBirthDate());
-        user.setChanged(new Timestamp(System.currentTimeMillis()));
-        user.setWeight(userUpdateRequest.getWeight());
-        return userService.update(user);
-    }
+    User user = userService.findById(userUpdateRequest.getId());
 
+    // converters
+    user.setGender(userUpdateRequest.getGender());
+    user.setName(userUpdateRequest.getName());
+    user.setSurname(userUpdateRequest.getSurname());
+    user.setBirthDate(userUpdateRequest.getBirthDate());
+    user.setChanged(new Timestamp(System.currentTimeMillis()));
+    user.setWeight(userUpdateRequest.getWeight());
+    return userService.update(user);
+  }
 }
