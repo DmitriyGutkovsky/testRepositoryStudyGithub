@@ -84,6 +84,15 @@ public class CarRestController {
         return carService.update(carForUpdate);
     }
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Car> deleteCar(@PathVariable Long id){
+        Car deleteCar = carService.findById(id);
+        carService.delete(deleteCar);
+        return carService.findAll();
+    }
+
+
 
 
 }
