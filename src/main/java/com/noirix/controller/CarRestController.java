@@ -1,5 +1,6 @@
 package com.noirix.controller;
 
+import com.noirix.controller.requests.SearchCriteria;
 import com.noirix.domain.Car;
 import com.noirix.service.CarService;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,13 @@ public class CarRestController {
     @ResponseStatus(HttpStatus.OK)
     public Car findCarById(@PathVariable Long id){
         return carService.findById(id);
+    }
+
+    // http://localhost:8080/rest/cars/search?query=bmw
+    @GetMapping("/search")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Car> searchCar(@ModelAttribute SearchCriteria criteria){
+        return carService.search(criteria.getQuery());
     }
 
 }
