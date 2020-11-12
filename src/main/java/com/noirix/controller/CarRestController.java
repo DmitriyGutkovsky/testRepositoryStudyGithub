@@ -84,6 +84,7 @@ public class CarRestController {
         return carService.update(carForUpdate);
     }
 
+    //  http://localhost:8080/rest/cars/41
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public List<Car> deleteCar(@PathVariable Long id){

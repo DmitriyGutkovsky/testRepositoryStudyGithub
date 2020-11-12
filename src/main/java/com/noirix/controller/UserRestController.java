@@ -8,15 +8,7 @@ import com.noirix.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -102,5 +94,14 @@ public class UserRestController {
     user.setChanged(new Timestamp(System.currentTimeMillis()));
     user.setWeight(userUpdateRequest.getWeight());
     return userService.update(user);
+  }
+
+  //  http://localhost:8080/rest/users/47
+  @DeleteMapping("/{id}")
+  @ResponseStatus(HttpStatus.OK)
+  public List<User> deleteUser(@PathVariable Long id){
+    User deletedUser= userService.findById(id);
+    userService.delete(deletedUser);
+    return userService.findAll();
   }
 }
