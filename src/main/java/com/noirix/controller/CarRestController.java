@@ -1,5 +1,6 @@
 package com.noirix.controller;
 
+import com.noirix.controller.requests.CarCreateRequest;
 import com.noirix.controller.requests.SearchCriteria;
 import com.noirix.domain.Car;
 import com.noirix.service.CarService;
@@ -36,5 +37,22 @@ public class CarRestController {
     public List<Car> searchCar(@ModelAttribute SearchCriteria criteria){
         return carService.search(criteria.getQuery());
     }
+
+    //  http://localhost:8080/rest/cars
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Car carSaving(@RequestBody CarCreateRequest carCreateRequest) {
+        Car car = new Car();
+
+        car.setModel(carCreateRequest.getModel());
+        car.setCreationYear(carCreateRequest.getCreationYear());
+        car.setUserId(carCreateRequest.getUserId());
+        car.setPrice(carCreateRequest.getPrice());
+        car.setColor(carCreateRequest.getColor());
+
+        return carService.save(car);
+    }
+
+
 
 }
