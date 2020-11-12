@@ -1,6 +1,7 @@
 package com.noirix.controller;
 
 import com.noirix.controller.requests.CarCreateRequest;
+import com.noirix.controller.requests.CarUpdateRequest;
 import com.noirix.controller.requests.SearchCriteria;
 import com.noirix.domain.Car;
 import com.noirix.service.CarService;
@@ -51,6 +52,36 @@ public class CarRestController {
         car.setColor(carCreateRequest.getColor());
 
         return carService.save(car);
+    }
+
+    // http://localhost:8080/rest/cars/41
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Car updateCar(@PathVariable Long id, @RequestBody CarUpdateRequest carUpdateRequest){
+        Car carForUpdate = carService.findById(id);
+
+        carForUpdate.setModel(carUpdateRequest.getModel());
+        carForUpdate.setCreationYear(carUpdateRequest.getCreationYear());
+        carForUpdate.setUserId(carUpdateRequest.getUserId());
+        carForUpdate.setPrice(carUpdateRequest.getPrice());
+        carForUpdate.setColor(carUpdateRequest.getColor());
+
+        return carService.update(carForUpdate);
+    }
+
+    //  http://localhost:8080/rest/cars
+    @PutMapping
+    @ResponseStatus(HttpStatus.OK)
+    public Car updateCar( @RequestBody CarUpdateRequest carUpdateRequest){
+        Car carForUpdate = carService.findById(carUpdateRequest.getId());
+
+        carForUpdate.setModel(carUpdateRequest.getModel());
+        carForUpdate.setCreationYear(carUpdateRequest.getCreationYear());
+        carForUpdate.setUserId(carUpdateRequest.getUserId());
+        carForUpdate.setPrice(carUpdateRequest.getPrice());
+        carForUpdate.setColor(carUpdateRequest.getColor());
+
+        return carService.update(carForUpdate);
     }
 
 
