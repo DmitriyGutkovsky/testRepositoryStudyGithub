@@ -1,5 +1,5 @@
 package com.noirix.repository.impl;
-
+/*
 import com.noirix.domain.Car;
 import com.noirix.exception.EntityNotFoundException;
 import com.noirix.repository.CarColumns;
@@ -251,3 +251,6 @@ public class CarRepositoryImpl implements CarRepository {
     }
   }
 }
+
+
+ */
