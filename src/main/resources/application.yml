@@ -16,3 +16,14 @@ amazon:
     s3: 123123213
     token: someToken
     password: password
+
+---
+
+google:
+  photo:
+    images:
+      local:
+        login: someLogin
+        pincode: somePincode
+        location: someLocation
+
