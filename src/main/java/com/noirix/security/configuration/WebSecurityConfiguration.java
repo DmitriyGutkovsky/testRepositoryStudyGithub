@@ -1,5 +1,6 @@
 package com.noirix.security.configuration;
 
+import com.noirix.security.util.TokenUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -27,7 +28,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userProvider;
 
-//    private final TokenUtils tokenUtils;
+    private final TokenUtils tokenUtils;
 
     private final NoOpPasswordEncoder noOpPasswordEncoder;
 
