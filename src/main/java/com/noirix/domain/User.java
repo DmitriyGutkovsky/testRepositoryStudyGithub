@@ -36,6 +36,10 @@ public class User {
 
   private Float weight;
 
+  private String login;
+
+  private String password;
+
   //only Spring annotations
 //  @Autowired
 //  @Qualifier("car1")

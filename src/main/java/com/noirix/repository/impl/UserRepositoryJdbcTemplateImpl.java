@@ -64,21 +64,28 @@ public class UserRepositoryJdbcTemplateImpl implements UserRepository {
   }
 
   @Override
-  public User save(User object) {
+  public Optional<User> findByLogin(String login) {
+    return Optional.of(jdbcTemplate.queryForObject("select * from m_users where login = ?", new Object[]{login}, this::getUserRowMapper));
+  }
+
+  @Override
+  public User save(User user) {
     final String saveQuery =
-            "insert into m_users (name, surname, birth_date, gender, created, changed, weight) "
-                    + "values (:name, :surname, :birthDate, :gender, :created, :changed, :weight)";
+            "insert into m_users (name, surname, birth_date, gender, created, changed, weight, login, password) "
+                    + "values (:name, :surname, :birthDate, :gender, :created, :changed, :weight, :login, :password)";
 
     GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
 
     MapSqlParameterSource params = new MapSqlParameterSource();
-    params.addValue("name", object.getName());
-    params.addValue("surname", object.getSurname());
-    params.addValue("birthDate", object.getBirthDate());
-    params.addValue("gender", object.getGender().name());
-    params.addValue("created", object.getCreated());
-    params.addValue("changed", object.getChanged());
-    params.addValue("weight", object.getWeight());
+    params.addValue("name", user.getName());
+    params.addValue("surname", user.getSurname());
+    params.addValue("birthDate", user.getBirthDate());
+    params.addValue("gender", user.getGender().name());
+    params.addValue("created", user.getCreated());
+    params.addValue("changed", user.getChanged());
+    params.addValue("weight", user.getWeight());
+    params.addValue("login", user.getLogin());
+    params.addValue("password", user.getPassword());
 
     namedParameterJdbcTemplate.update(saveQuery,params,keyHolder, new String[]{"id"}); // column for primary key, param: new String[]{"id"}
 
@@ -115,7 +122,7 @@ public class UserRepositoryJdbcTemplateImpl implements UserRepository {
   }
 
   @Override
-  public User update(User object) {
+  public User update(User user) {
     final String updateQuery =
             "update m_users "
                     + "set " +
@@ -125,22 +132,26 @@ public class UserRepositoryJdbcTemplateImpl implements UserRepository {
                     "gender = :gender, " +
                     "created = :created, " +
                     "changed = :changed, " +
-                    "weight = :weight " +
+                    "weight = :weight, " +
+                    "password = :password, " +
+                    "login = :login " +
                     "where id = :userId";
 
     MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
-    mapSqlParameterSource.addValue("name", object.getName());
-    mapSqlParameterSource.addValue("surname", object.getSurname());
-    mapSqlParameterSource.addValue("birthDate", object.getBirthDate());
-    mapSqlParameterSource.addValue("gender", object.getGender().name());
-    mapSqlParameterSource.addValue("created", object.getCreated());
-    mapSqlParameterSource.addValue("changed", object.getChanged());
-    mapSqlParameterSource.addValue("weight", object.getWeight());
-    mapSqlParameterSource.addValue("userId", object.getId());
+    mapSqlParameterSource.addValue("name", user.getName());
+    mapSqlParameterSource.addValue("surname", user.getSurname());
+    mapSqlParameterSource.addValue("birthDate", user.getBirthDate());
+    mapSqlParameterSource.addValue("gender", user.getGender().name());
+    mapSqlParameterSource.addValue("created", user.getCreated());
+    mapSqlParameterSource.addValue("changed", user.getChanged());
+    mapSqlParameterSource.addValue("weight", user.getWeight());
+    mapSqlParameterSource.addValue("userId", user.getId());
+    mapSqlParameterSource.addValue("login", user.getLogin());
+    mapSqlParameterSource.addValue("password", user.getPassword());
 
     namedParameterJdbcTemplate.update(updateQuery,mapSqlParameterSource);
 
-    return findById(object.getId());
+    return findById(user.getId());
   }
 
   @Override
@@ -164,6 +175,8 @@ public class UserRepositoryJdbcTemplateImpl implements UserRepository {
     user.setCreated(rs.getTimestamp(UserColumns.CREATED));
     user.setChanged(rs.getTimestamp(UserColumns.CHANGED));
     user.setWeight(rs.getFloat(UserColumns.WEIGHT));
+    user.setLogin(rs.getString(UserColumns.LOGIN));
+    user.setPassword(rs.getString(UserColumns.PASSWORD));
 
     return user;
   }

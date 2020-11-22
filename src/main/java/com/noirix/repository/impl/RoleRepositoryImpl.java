@@ -52,4 +52,9 @@ public class RoleRepositoryImpl implements RoleRepository {
     public Long delete(Role object) {
         return null;
     }
+
+    @Override
+    public List<Role> findUserRoles(Long userId) {
+        return null;
+    }
 }
