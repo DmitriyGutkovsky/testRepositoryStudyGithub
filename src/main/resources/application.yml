@@ -27,3 +27,8 @@ google:
         pincode: somePincode
         location: someLocation
 
+---
+
+jwtconfig:
+  secret: secret
+  expiration: 60000 # time in milliseconds, expiration time for Token
