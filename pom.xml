@@ -120,6 +120,20 @@
             <version>${jwt.version}</version>
         </dependency>
 
+        <!-- API, java.xml.bind module -->
+        <!--  necessary for token generation -->
+        <dependency>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+        </dependency>
+
+        <!-- Runtime, com.sun.xml.bind module -->
+        <!--  necessary for token generation -->
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+        </dependency>
+
 
         <!--        <dependency>-->
         <!--            <groupId>javax.servlet</groupId>-->

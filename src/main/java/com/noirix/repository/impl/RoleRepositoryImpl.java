@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,6 +56,6 @@ public class RoleRepositoryImpl implements RoleRepository {
 
     @Override
     public List<Role> findUserRoles(Long userId) {
-        return null;
+        return Collections.emptyList();
     }
 }
