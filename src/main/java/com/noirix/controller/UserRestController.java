@@ -50,7 +50,8 @@ public class UserRestController {
   //  http://localhost:8080/rest/users
   @ApiOperation(value = "Endpoint for creation users")
   @ApiImplicitParams({
-          @ApiImplicitParam(name = "Auth-Token", defaultValue = "token", required = true, paramType = "header", dataType = "string" )
+          @ApiImplicitParam(name = "Auth-Token", defaultValue = "token", required = true, paramType = "header", dataType = "string" ),
+          @ApiImplicitParam(name = "Query", defaultValue = "query", required = false, paramType = "query", dataType = "string")
   })
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
