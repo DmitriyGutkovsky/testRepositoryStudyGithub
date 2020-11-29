@@ -3,6 +3,8 @@ package com.noirix.security.controller;
 import com.noirix.controller.requests.UserCreateRequest;
 import com.noirix.domain.User;
 import com.noirix.service.UserService;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
