@@ -3,6 +3,7 @@ package com.noirix.security.controller;
 import com.noirix.controller.requests.UserCreateRequest;
 import com.noirix.domain.User;
 import com.noirix.service.UserService;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,7 @@ public class RegistrationController {
 
     private  final PasswordEncoder passwordEncoder;
 
+    @ApiOperation(value = "Endpoint for registration users by 6 params")
     @PostMapping
     public ResponseEntity<Map<String, Object>> registration(@RequestBody UserCreateRequest userCreateRequest){
 
