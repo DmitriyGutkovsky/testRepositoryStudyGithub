@@ -12,6 +12,10 @@ public class UserCreateRequest {
 
     private String surname;
 
+    private String login;
+
+    private String password;
+
     private Date birthDate;
 
     private Gender gender = Gender.NOT_SELECTED;
