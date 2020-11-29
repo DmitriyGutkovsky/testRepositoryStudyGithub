@@ -86,6 +86,7 @@ public class ApplicationBeans {
         return new BCryptPasswordEncoder();
     }
 
+    // also Swagger works without this bean....:public Docket api()
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
