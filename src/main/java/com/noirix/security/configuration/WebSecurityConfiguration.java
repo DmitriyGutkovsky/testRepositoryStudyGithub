@@ -15,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /* сконфигурировать отдельные части приложения: Authentication Manager, Authentication Provider  и
 перечислить те фильтры, кот будут учавствовать в процессе проверки авторизации пользователя
@@ -30,18 +31,20 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final TokenUtils tokenUtils;
 
-    private final NoOpPasswordEncoder noOpPasswordEncoder;
+//    private final PasswordEncoder passwordEncoder;
 
 
     /*
     указывает какой Authentication Manager будет использоваться
-    и какой  Authentication Provider отвечать за поставку
+    и какой  Authentication Provider отвечать за поставку,
+    добавляем Энкодер
      */
     @Autowired
-    public void configureAuthentication(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+    public void configureAuthentication(AuthenticationManagerBuilder authenticationManagerBuilder,
+                                        PasswordEncoder passwordEncoder) throws Exception {
         authenticationManagerBuilder
                 .userDetailsService(userProvider)
-                .passwordEncoder(noOpPasswordEncoder);
+                .passwordEncoder(passwordEncoder);
     }
 
 //    @Bean
