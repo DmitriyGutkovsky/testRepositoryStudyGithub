@@ -20,7 +20,10 @@ public class PersistenceContextBeansConfiguration {
         LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
 
         // Package contain entity classes
-        factoryBean.setPackagesToScan("com.noirix"); // hibernate: where find classes with @Entity
+//        factoryBean.setPackagesToScan("com.noirix"); // hibernate: where find classes with @Entity
+        // with XML - configuration
+        factoryBean.setMappingResources("hibernate");
+
         factoryBean.setDataSource(dataSource);
         factoryBean.setHibernateProperties(getAdditionalProperties());
         factoryBean.afterPropertiesSet();
