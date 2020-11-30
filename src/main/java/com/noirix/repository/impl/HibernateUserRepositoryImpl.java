@@ -15,58 +15,55 @@ import java.util.Optional;
 @Repository
 @Primary
 @Log4j2
-public class HibernateUserRepositoryImpl  implements HibernateUserRepository {
+public class HibernateUserRepositoryImpl implements HibernateUserRepository {
 
-    private final SessionFactory sessionFactory;
+  private final SessionFactory sessionFactory;
 
-    public HibernateUserRepositoryImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+  public HibernateUserRepositoryImpl(SessionFactory sessionFactory) {
+    this.sessionFactory = sessionFactory;
+  }
+
+  @Override
+  public HibernateUser save(HibernateUser object) {
+    return null;
+  }
+
+  @Override
+  public List<HibernateUser> findAll() {
+    //    try (Session currentSession = sessionFactory.getCurrentSession()) { // для каждого
+    // отдельного запроса желательно создавать отдельную сессию
+    try (Session session = sessionFactory.openSession()) {
+      return Collections.singletonList(session.find(HibernateUser.class, 5l)); // find HibernateUser with primary key = 6
     }
+  }
 
+  @Override
+  public HibernateUser findById(Long key) {
+    return null;
+  }
 
-    @Override
-    public HibernateUser save(HibernateUser object) {
-        return null;
-    }
+  @Override
+  public Optional<HibernateUser> findOne(Long key) {
+    return Optional.empty();
+  }
 
-    @Override
-    public List<HibernateUser> findAll() {
-//    try (Session currentSession = sessionFactory.getCurrentSession()) { // для каждого отдельного запроса желательно создавать отдельную сессию
-    try (Session currentSession = sessionFactory.openSession()) {
+  @Override
+  public HibernateUser update(HibernateUser object) {
+    return null;
+  }
 
+  @Override
+  public Long delete(HibernateUser object) {
+    return null;
+  }
 
-    }
-            return Collections.emptyList();
-    }
+  @Override
+  public List<HibernateUser> search(String query) {
+    return null;
+  }
 
-    @Override
-    public HibernateUser findById(Long key) {
-        return null;
-    }
-
-    @Override
-    public Optional<HibernateUser> findOne(Long key) {
-        return Optional.empty();
-    }
-
-    @Override
-    public HibernateUser update(HibernateUser object) {
-        return null;
-    }
-
-    @Override
-    public Long delete(HibernateUser object) {
-        return null;
-    }
-
-
-    @Override
-    public List<HibernateUser> search(String query) {
-        return null;
-    }
-
-    @Override
-    public Optional<HibernateUser> findByLogin(String login) {
-        return Optional.empty();
-    }
+  @Override
+  public Optional<HibernateUser> findByLogin(String login) {
+    return Optional.empty();
+  }
 }
