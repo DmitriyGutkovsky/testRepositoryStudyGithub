@@ -25,7 +25,7 @@ import java.util.Optional;
 //@Slf4j
 // @RequiredArgsConstructor
 @Repository
-@Primary
+//@Primary
 public class UserRepositoryJdbcTemplateImpl implements UserRepository {
 
   private static final Logger log = Logger.getLogger(UserRepositoryJdbcTemplateImpl.class);
