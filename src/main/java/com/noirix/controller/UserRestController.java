@@ -4,6 +4,8 @@ import com.noirix.controller.requests.SearchCriteria;
 import com.noirix.controller.requests.UserCreateRequest;
 import com.noirix.controller.requests.UserUpdateRequest;
 import com.noirix.domain.User;
+import com.noirix.domain.hubernate.HibernateUser;
+import com.noirix.repository.HibernateUserRepository;
 import com.noirix.service.UserService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -23,6 +25,8 @@ public class UserRestController {
 
   public final UserService userService;
 
+  public final HibernateUserRepository hibernateUserRepository;
+
   // http://localhost:8080/rest/users
   @GetMapping
   public ResponseEntity<List<User>> findAllUsers() {
@@ -32,6 +36,17 @@ public class UserRestController {
     //        return ResponseEntity.ok(userService.findAll());
     return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
   }
+
+
+  @GetMapping("/hibernate")
+  public ResponseEntity<List<HibernateUser>> findAllHibernateUser() {
+
+    //        throw new RuntimeException("Test Test Controller advice for exception");
+
+    //        return ResponseEntity.ok(userService.findAll());
+    return new ResponseEntity<>(hibernateUserRepository.findAll(), HttpStatus.OK);
+  }
+
 
   // http://localhost:8080/rest/users/5
   @GetMapping("/{id}")
@@ -112,4 +127,8 @@ public class UserRestController {
     userService.delete(deletedUser);
     return userService.findAll();
   }
+
+
+
+
 }
