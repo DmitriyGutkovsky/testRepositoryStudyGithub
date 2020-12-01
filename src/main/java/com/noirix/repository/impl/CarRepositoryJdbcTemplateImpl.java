@@ -17,7 +17,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Repository
-@Primary
+//@Primary
 public class CarRepositoryJdbcTemplateImpl implements CarRepository {
 
   private JdbcTemplate jdbcTemplate;
