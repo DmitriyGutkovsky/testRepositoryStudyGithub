@@ -25,8 +25,6 @@ public class UserRestController {
 
   public final UserService userService;
 
-  public final HibernateUserRepository hibernateUserRepository;
-
   // http://localhost:8080/rest/users
   @GetMapping
   public ResponseEntity<List<User>> findAllUsers() {
@@ -36,17 +34,6 @@ public class UserRestController {
     //        return ResponseEntity.ok(userService.findAll());
     return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
   }
-
-
-  @GetMapping("/hibernate")
-  public ResponseEntity<List<HibernateUser>> findAllHibernateUser() {
-
-    //        throw new RuntimeException("Test Test Controller advice for exception");
-
-    //        return ResponseEntity.ok(userService.findAll());
-    return new ResponseEntity<>(hibernateUserRepository.findAll(), HttpStatus.OK);
-  }
-
 
   // http://localhost:8080/rest/users/5
   @GetMapping("/{id}")
@@ -98,6 +85,8 @@ public class UserRestController {
     user.setBirthDate(userCreateRequest.getBirthDate());
     user.setWeight(userCreateRequest.getWeight());
     user.setChanged(new Timestamp(System.currentTimeMillis()));
+    user.setLogin(userCreateRequest.getLogin());
+    user.setPassword(userCreateRequest.getPassword());
 
     return userService.update(user);
   }

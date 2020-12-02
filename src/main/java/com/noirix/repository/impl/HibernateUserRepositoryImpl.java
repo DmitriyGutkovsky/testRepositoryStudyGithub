@@ -5,6 +5,7 @@ import com.noirix.repository.HibernateUserRepository;
 import lombok.extern.log4j.Log4j2;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
@@ -25,7 +26,10 @@ public class HibernateUserRepositoryImpl implements HibernateUserRepository {
 
   @Override
   public HibernateUser save(HibernateUser object) {
-    return null;
+    try (Session session = sessionFactory.openSession()) {
+      session.saveOrUpdate(object);
+      return object;
+    }
   }
 
   @Override
@@ -33,28 +37,40 @@ public class HibernateUserRepositoryImpl implements HibernateUserRepository {
     //    try (Session currentSession = sessionFactory.getCurrentSession()) { // для каждого
     // отдельного запроса желательно создавать отдельную сессию
     try (Session session = sessionFactory.openSession()) {
-      return Collections.singletonList(session.find(HibernateUser.class, 5l)); // find HibernateUser with primary key = 6
+      return Collections.singletonList(
+          session.find(HibernateUser.class, 5l)); // find HibernateUser with primary key = 6
     }
   }
 
   @Override
   public HibernateUser findById(Long key) {
-    return null;
+    try (Session session = sessionFactory.openSession()) {
+      return session.find(HibernateUser.class, key); // find HibernateUser with primary key = 6
+    }
   }
 
   @Override
   public Optional<HibernateUser> findOne(Long key) {
-    return Optional.empty();
+    return Optional.of(findById(key));
   }
 
   @Override
   public HibernateUser update(HibernateUser object) {
-    return null;
+    try (Session session = sessionFactory.openSession()) {
+      Transaction transaction = session.getTransaction();
+      transaction.begin();
+      session.saveOrUpdate(object);
+      transaction.commit();
+      return object;
+    }
   }
 
   @Override
   public Long delete(HibernateUser object) {
-    return null;
+    try (Session session = sessionFactory.openSession()) {
+      session.delete(object);
+      return object.getId();
+    }
   }
 
   @Override

@@ -7,10 +7,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -19,7 +22,7 @@ import java.util.Date;
 public class HibernateUser {
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
@@ -28,13 +31,13 @@ public class HibernateUser {
     @Column
     private String surname;
 
-    @Column(name = "birth_date")
-    private LocalDateTime birthDate;
-
-
 //    @Column(name = "birth_date")
-//    @Temporal(TemporalType.DATE)
-//    private Date birthDate;
+//    private LocalDateTime birthDate;
+
+
+    @Column(name = "birth_date")
+    @Temporal(TemporalType.DATE)
+    private Date birthDate;
 
     @Column
     @Enumerated(EnumType.STRING)
