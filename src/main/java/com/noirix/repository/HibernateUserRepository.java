@@ -1,6 +1,6 @@
 package com.noirix.repository;
 
-import com.noirix.domain.hubernate.HibernateUser;
+import com.noirix.domain.hibernate.HibernateUser;
 
 import java.util.List;
 import java.util.Optional;

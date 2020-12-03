@@ -4,8 +4,6 @@ import com.noirix.controller.requests.SearchCriteria;
 import com.noirix.controller.requests.UserCreateRequest;
 import com.noirix.controller.requests.UserUpdateRequest;
 import com.noirix.domain.User;
-import com.noirix.domain.hubernate.HibernateUser;
-import com.noirix.repository.HibernateUserRepository;
 import com.noirix.service.UserService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;

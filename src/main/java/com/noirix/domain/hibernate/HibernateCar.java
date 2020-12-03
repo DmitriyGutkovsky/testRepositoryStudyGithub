@@ -1,4 +1,4 @@
-package com.noirix.domain.hubernate;
+package com.noirix.domain.hibernate;
 
 import lombok.Data;
 

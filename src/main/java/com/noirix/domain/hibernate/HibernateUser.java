@@ -1,23 +1,21 @@
-package com.noirix.domain.hubernate;
+package com.noirix.domain.hibernate;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.noirix.domain.Gender;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Collections;
 import java.util.Date;
+import java.util.Set;
 
 @Data
 @Entity
+@EqualsAndHashCode(exclude = {
+        "roles"
+})
 @Table(name = "m_users")
 public class HibernateUser {
 
@@ -57,5 +55,9 @@ public class HibernateUser {
 
     @Column
     private String password;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<HibernateRole> roles = Collections.emptySet();
 
 }

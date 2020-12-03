@@ -3,7 +3,8 @@ package com.noirix.controller;
 import com.noirix.controller.requests.SearchCriteria;
 import com.noirix.controller.requests.UserCreateRequest;
 import com.noirix.controller.requests.UserUpdateRequest;
-import com.noirix.domain.hubernate.HibernateUser;
+import com.noirix.domain.hibernate.HibernateRole;
+import com.noirix.domain.hibernate.HibernateUser;
 import com.noirix.repository.HibernateUserRepository;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -45,10 +47,10 @@ public class UserHibernateController {
 
     //  http://localhost:8080/rest/users
     @ApiOperation(value = "Endpoint for creation users")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "Auth-Token", defaultValue = "token", required = true, paramType = "header", dataType = "string" ),
-            @ApiImplicitParam(name = "Query", defaultValue = "query", required = false, paramType = "query", dataType = "string")
-    })
+//    @ApiImplicitParams({
+//            @ApiImplicitParam(name = "Auth-Token", defaultValue = "token", required = true, paramType = "header", dataType = "string" ),
+//            @ApiImplicitParam(name = "Query", defaultValue = "query", required = false, paramType = "query", dataType = "string")
+//    })
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public HibernateUser savingUser(@RequestBody UserCreateRequest userCreateRequest) {
@@ -64,6 +66,8 @@ public class UserHibernateController {
         user.setChanged(new Timestamp(System.currentTimeMillis()));
         user.setLogin(userCreateRequest.getLogin());
         user.setPassword(userCreateRequest.getPassword());
+
+        user.setRoles(Collections.singleton(new HibernateRole("ROLE_ADMIN", user)));
 
         return hibernateUserRepository.save(user);
     }
@@ -81,6 +85,8 @@ public class UserHibernateController {
         user.setBirthDate(userCreateRequest.getBirthDate());
         user.setWeight(userCreateRequest.getWeight());
         user.setChanged(new Timestamp(System.currentTimeMillis()));
+
+        user.setRoles(Collections.singleton(new HibernateRole("ROLE_ADMIN", user)));
 
         return hibernateUserRepository.update(user);
     }

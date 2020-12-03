@@ -1,6 +1,6 @@
 package com.noirix.repository.impl;
 
-import com.noirix.domain.hubernate.HibernateUser;
+import com.noirix.domain.hibernate.HibernateUser;
 import com.noirix.repository.HibernateUserRepository;
 import lombok.extern.log4j.Log4j2;
 import org.hibernate.Session;
