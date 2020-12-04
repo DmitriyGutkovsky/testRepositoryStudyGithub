@@ -67,7 +67,8 @@ public class UserHibernateController {
         user.setLogin(userCreateRequest.getLogin());
         user.setPassword(userCreateRequest.getPassword());
 
-        user.setRoles(Collections.singleton(new HibernateRole("ROLE_ADMIN", user)));
+//        user.setRoles(Collections.singleton(new HibernateRole("ROLE_ADMIN", user)));
+        user.setRole(new HibernateRole("ROLE_ADMIN", user));
 
         return hibernateUserRepository.save(user);
     }
@@ -86,7 +87,8 @@ public class UserHibernateController {
         user.setWeight(userCreateRequest.getWeight());
         user.setChanged(new Timestamp(System.currentTimeMillis()));
 
-        user.setRoles(Collections.singleton(new HibernateRole("ROLE_ADMIN", user)));
+//        user.setRoles(Collections.singleton(new HibernateRole("ROLE_ADMIN", user)));
+        user.setRole(new HibernateRole("ROLE_ADMIN", user));
 
         return hibernateUserRepository.update(user);
     }

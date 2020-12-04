@@ -56,8 +56,14 @@ public class HibernateUser {
     @Column
     private String password;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+//    @JsonManagedReference
+//    private Set<HibernateRole> roles = Collections.emptySet();
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JsonManagedReference
-    private Set<HibernateRole> roles = Collections.emptySet();
+    private HibernateRole role;
+
+
 
 }
