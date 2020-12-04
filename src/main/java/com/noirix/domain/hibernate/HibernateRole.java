@@ -19,15 +19,15 @@ public class HibernateRole {
     @Column(name = "role_name")
     private String roleName;
 
-//    @ManyToOne
-//    @JoinColumn(name = "user_id")
-//    @JsonBackReference
-//    private HibernateUser user;
-
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonBackReference
     private HibernateUser user;
+
+//    @OneToOne
+//    @JoinColumn(name = "user_id")
+//    @JsonBackReference
+//    private HibernateUser user;
 
     public HibernateRole(Long id, String roleName) {
         this.id = id;
