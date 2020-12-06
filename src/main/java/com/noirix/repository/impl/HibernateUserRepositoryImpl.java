@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Repository
@@ -56,6 +57,7 @@ public class HibernateUserRepositoryImpl implements HibernateUserRepository {
       String hqlQuery =
               "select u from HibernateUser u"
 //              "from HibernateUser"
+//              "select u.id, role.roleName from HibernateUser u left join u.role as role" // correct query for OneToOne relationship
               ;
 
       return session.createQuery(hqlQuery, HibernateUser.class).list();
@@ -101,5 +103,21 @@ public class HibernateUserRepositoryImpl implements HibernateUserRepository {
   @Override
   public Optional<HibernateUser> findByLogin(String login) {
     return Optional.empty();
+  }
+
+  @Override
+  public Object testHql() {
+
+    try (Session session = sessionFactory.openSession()){
+
+      String hqlQuery =
+//              "select u from HibernateUser u"
+//              "from HibernateUser"
+              "select u.id, role.roleName from HibernateUser u left join u.role as role" // correct query for OneToOne relationship
+              ;
+
+      return session.createQuery(hqlQuery).list();
+    }
+
   }
 }
