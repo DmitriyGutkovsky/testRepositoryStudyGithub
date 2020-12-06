@@ -57,7 +57,6 @@ public class HibernateUserRepositoryImpl implements HibernateUserRepository {
       String hqlQuery =
               "select u from HibernateUser u"
 //              "from HibernateUser"
-//              "select u.id, role.roleName from HibernateUser u left join u.role as role" // correct query for OneToOne relationship
               ;
 
       return session.createQuery(hqlQuery, HibernateUser.class).list();
@@ -113,8 +112,24 @@ public class HibernateUserRepositoryImpl implements HibernateUserRepository {
       String hqlQuery =
 //              "select u from HibernateUser u"
 //              "from HibernateUser"
-              "select u.id, role.roleName from HibernateUser u left join u.role as role" // correct query for OneToOne relationship
-              ;
+//              "select u.id, role.roleName from HibernateUser u left join u.role as role" ;// correct query for OneToOne relationship
+
+              "select u.id, role.roleName, u.weight from HibernateUser u left join u.role as role " +
+              "where role.roleName = 'ROLE_ADMIN' ";
+
+
+
+//              "select u.id, role.roleName, u.weight from HibernateUser u left join u.role as role " +
+////                            " " +
+//              "where role.roleName = com.noirix.domain.SystemRoles.ROLE_ADMIN " +
+//              "and u.weight > (select avg(u.weight) from HibernateUser u) " +
+//              "and u.id in(45, 46, 42) " +
+//              "and u.name like '%o%' " +
+////                            "having u.weight > avg(u.weight) " +
+//              "";
+
+
+
 
       return session.createQuery(hqlQuery).list();
     }
