@@ -34,11 +34,31 @@ public class HibernateUserRepositoryImpl implements HibernateUserRepository {
 
   @Override
   public List<HibernateUser> findAll() {
+
     //    try (Session currentSession = sessionFactory.getCurrentSession()) { // для каждого
     // отдельного запроса желательно создавать отдельную сессию
-    try (Session session = sessionFactory.openSession()) {
-      return Collections.singletonList(
-          session.find(HibernateUser.class, 5l)); // find HibernateUser with primary key = 6
+//    try (Session session = sessionFactory.openSession()) {
+//      return Collections.singletonList(
+//          session.find(HibernateUser.class, 5l)); // find HibernateUser with primary key = 6
+//    }
+
+    // HQL
+    /*1. Change table name to mapped Entity: m_users -> HibernateUser u*/
+    /*2. Change table column names to mapped Entity fields:
+                  select * from m_users
+                  select u from HibernateUser u
+
+                  select id, name, birth_date from m_users
+                  select u.id, u.name, u.birthDate from HibernateUser u
+                  */
+    try (Session session = sessionFactory.openSession()){
+
+      String hqlQuery =
+              "select u from HibernateUser u"
+//              "from HibernateUser"
+              ;
+
+      return session.createQuery(hqlQuery, HibernateUser.class).list();
     }
   }
 
