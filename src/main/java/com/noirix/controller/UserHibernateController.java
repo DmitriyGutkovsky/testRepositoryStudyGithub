@@ -3,6 +3,7 @@ package com.noirix.controller;
 import com.noirix.controller.requests.SearchCriteria;
 import com.noirix.controller.requests.UserCreateRequest;
 import com.noirix.controller.requests.UserUpdateRequest;
+import com.noirix.domain.SystemRoles;
 import com.noirix.domain.hibernate.HibernateRole;
 import com.noirix.domain.hibernate.HibernateUser;
 import com.noirix.repository.HibernateUserRepository;
@@ -72,7 +73,8 @@ public class UserHibernateController {
         user.setPassword(userCreateRequest.getPassword());
 
 //        user.setRoles(Collections.singleton(new HibernateRole("ROLE_ADMIN", user)));
-        user.setRole(new HibernateRole("ROLE_ADMIN", user));
+//        user.setRole(new HibernateRole("ROLE_ADMIN", user));
+        user.setRole(new HibernateRole(SystemRoles.ROLE_ADMIN, user));
 
         return hibernateUserRepository.save(user);
     }
@@ -92,7 +94,8 @@ public class UserHibernateController {
         user.setChanged(new Timestamp(System.currentTimeMillis()));
 
 //        user.setRoles(Collections.singleton(new HibernateRole("ROLE_ADMIN", user)));
-        user.setRole(new HibernateRole("ROLE_ADMIN", user));
+//        user.setRole(new HibernateRole("ROLE_ADMIN", user));
+        user.setRole(new HibernateRole(SystemRoles.ROLE_ADMIN, user));
 
         return hibernateUserRepository.update(user);
     }

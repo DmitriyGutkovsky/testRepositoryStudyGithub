@@ -1,17 +1,11 @@
 package com.noirix.domain.hibernate;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.noirix.domain.SystemRoles;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Setter
 @Getter
@@ -24,7 +18,8 @@ public class HibernateRole {
     private Long id;
 
     @Column(name = "role_name")
-    private String roleName;
+    @Enumerated(EnumType.STRING)
+    private SystemRoles roleName;
 
 //    @ManyToOne
 //    @JoinColumn(name = "user_id")
@@ -36,7 +31,7 @@ public class HibernateRole {
     @JsonBackReference
     private HibernateUser user;
 
-    public HibernateRole(Long id, String roleName) {
+    public HibernateRole(Long id, SystemRoles roleName) {
         this.id = id;
         this.roleName = roleName;
     }
@@ -44,12 +39,12 @@ public class HibernateRole {
     public HibernateRole() {
     }
 
-    public HibernateRole(String roleName, HibernateUser user) {
+    public HibernateRole(SystemRoles roleName, HibernateUser user) {
         this.roleName = roleName;
         this.user = user;
     }
 
-    public HibernateRole(String roleName) {
+    public HibernateRole(SystemRoles roleName) {
         this.roleName = roleName;
     }
 }

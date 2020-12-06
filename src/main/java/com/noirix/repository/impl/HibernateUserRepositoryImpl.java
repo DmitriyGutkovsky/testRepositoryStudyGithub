@@ -121,8 +121,8 @@ public class HibernateUserRepositoryImpl implements HibernateUserRepository {
 
               "select u.id, role.roleName, u.weight from HibernateUser u left join u.role as role " +
 //                            " " +
-//              "where role.roleName = com.noirix.domain.SystemRoles.ROLE_ADMIN " +
-              "where role.roleName = 'ROLE_ADMIN' " +
+//              "where role.roleName = 'ROLE_ADMIN' " +
+              "where role.roleName = com.noirix.domain.SystemRoles.ROLE_ADMIN " +
               "and u.weight > (select avg(u.weight) from HibernateUser u) " +
               "and u.id in(55, 56, 52) " +
               "and u.name like '%o%' " +
