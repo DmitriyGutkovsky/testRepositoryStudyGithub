@@ -7,4 +7,8 @@ public class SearchCriteria {
     private String query;
 
     private Long limit;
+
+    private Long userLowerId;
+
+    private Long offset;
 }

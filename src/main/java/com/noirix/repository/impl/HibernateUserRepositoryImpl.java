@@ -1,14 +1,24 @@
 package com.noirix.repository.impl;
 
+import com.noirix.controller.requests.SearchCriteria;
 import com.noirix.domain.hibernate.HibernateUser;
+import com.noirix.domain.hibernate.HibernateUser_;
 import com.noirix.repository.HibernateUserRepository;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.ParameterExpression;
+import javax.persistence.criteria.Root;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -136,4 +146,51 @@ public class HibernateUserRepositoryImpl implements HibernateUserRepository {
     }
 
   }
+
+  @Override
+  public List<HibernateUser> testCriteriaApi(SearchCriteria criteria) {
+
+    EntityManager entityManager = sessionFactory.createEntityManager();
+
+    //1. Get Builder for Criteria object
+    CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+    CriteriaQuery<HibernateUser> query = cb.createQuery(HibernateUser.class); //here select, where, orderBy, having
+    Root<HibernateUser> root = query.from(HibernateUser.class); //here params  select * from m_users -> mapping
+
+    /*type of future params in prepared statement*/
+    ParameterExpression<String> param = cb.parameter(String.class);
+    ParameterExpression<Long> userSearchParam = cb.parameter(Long.class);
+
+    /*Provide access to fields in class that mapped to columns*/
+    Expression<Long> id = root.get(HibernateUser_.id);
+    Expression<String> name = root.get(HibernateUser_.name);
+    Expression<String> surname = root.get(HibernateUser_.surname);
+
+    /*SQL Query customizing*/
+    query.select(root)
+            .distinct(true)
+            .where(
+                    cb.or(
+                            cb.like(name, param),  //userName like param
+                            cb.like(surname, param)  //userSurname like param
+                    ),
+                    cb.and(
+                            cb.gt(root.get(HibernateUser_.id), userSearchParam), //>0
+                            cb.not(id.in(40L, 50L)) //in (40,50)
+                    )
+//                        ,
+//                        cb.between(
+//                                root.get(TestUser_.birthDate),
+//                                new Timestamp(new Date().getTime()),
+//                                new Timestamp(new Date().getTime())
+//                        )
+            )
+            .orderBy(cb.asc(root.get(HibernateUser_.id)));
+
+    TypedQuery<HibernateUser> resultQuery = entityManager.createQuery(query); //prepared statement on hql
+    resultQuery.setParameter(param, StringUtils.join("%", criteria.getQuery(), "%"));
+    resultQuery.setParameter(userSearchParam, criteria.getUserLowerId());
+    return resultQuery.getResultList();
+  }
+
 }
