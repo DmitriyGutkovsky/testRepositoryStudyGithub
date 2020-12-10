@@ -127,8 +127,6 @@ public class HibernateUserRepositoryImpl implements HibernateUserRepository {
 //              "select u.id, role.roleName, u.weight from HibernateUser u left join u.role as role " +
 //              "where role.roleName = 'ROLE_ADMIN' ";
 
-
-
               "select u.id, role.roleName, u.weight from HibernateUser u left join u.role as role " +
 //                            " " +
 //              "where role.roleName = 'ROLE_ADMIN' " +
@@ -139,12 +137,8 @@ public class HibernateUserRepositoryImpl implements HibernateUserRepository {
 //                            "having u.weight > avg(u.weight) " +
               "";
 
-
-
-
       return session.createQuery(hqlQuery).list();
     }
-
   }
 
   @Override
@@ -193,4 +187,43 @@ public class HibernateUserRepositoryImpl implements HibernateUserRepository {
     return resultQuery.getResultList();
   }
 
+
+//  Выбратьт всех юзеров, у которых в имени нету буквы a(английская),
+//  айдишка юзера не больше 100, сортировка от большего к меньшему
+//  Доп: длина фамилии не больше 10 символов - не делал
+  // сортировка от меньшего к большему - по дефолту
+
+  @Override
+  public List<HibernateUser> testCriteriaApiTask(SearchCriteria criteria) {
+
+    EntityManager entityManager = sessionFactory.createEntityManager();
+
+    //1. Get Builder for Criteria object
+    CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+    CriteriaQuery<HibernateUser> query = cb.createQuery(HibernateUser.class); //here select, where, orderBy, having
+    Root<HibernateUser> root = query.from(HibernateUser.class); //here params  select * from m_users -> mapping
+
+    /*type of future params in prepared statement*/
+    ParameterExpression<String> param = cb.parameter(String.class);
+
+    /*Provide access to fields in class that mapped to columns*/
+    Expression<Long> id = root.get(HibernateUser_.id);
+    Expression<String> name = root.get(HibernateUser_.name);
+
+    /*SQL Query customizing*/
+    query.select(root)
+            .distinct(true)
+            .where(
+                    cb.or(
+                            cb.notLike(name, param) //userName not like param
+                    ),
+                    cb.and(
+                            cb.between(id, 0L, 100L) // 0 < id <100
+                    )
+            );
+
+    TypedQuery<HibernateUser> resultQuery = entityManager.createQuery(query); //prepared statement on hql
+    resultQuery.setParameter(param, StringUtils.join("%", criteria.getQuery(), "%"));
+    return resultQuery.getResultList();
+  }
 }

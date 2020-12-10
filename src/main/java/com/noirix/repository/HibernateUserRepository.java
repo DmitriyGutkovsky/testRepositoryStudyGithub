@@ -14,4 +14,6 @@ public interface HibernateUserRepository extends CrudRepository<Long, HibernateU
     Object testHql();
 
     List<HibernateUser> testCriteriaApi(SearchCriteria criteria);
+
+    List<HibernateUser> testCriteriaApiTask(SearchCriteria criteria);
 }

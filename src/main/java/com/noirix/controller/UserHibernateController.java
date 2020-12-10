@@ -133,4 +133,10 @@ public class UserHibernateController {
     Object all = hibernateUserRepository.testCriteriaApi(criteria);
     return new ResponseEntity<>(all, HttpStatus.OK);
   }
+
+  @GetMapping("/creteriaapi/task")
+  public ResponseEntity<Object> testCriteriaAPITask(@ModelAttribute SearchCriteria criteria) {
+    Object all = hibernateUserRepository.testCriteriaApiTask(criteria);
+    return new ResponseEntity<>(all, HttpStatus.OK);
+  }
 }
