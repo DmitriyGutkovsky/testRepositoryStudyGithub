@@ -14,11 +14,11 @@ import java.util.Optional;
 @Log4j2
 public class HibernateCarRepositoryImpl implements HibernateCarRepository {
 
-    private final SessionFactory sessionFactory;
-
-    public HibernateCarRepositoryImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
+//    private final SessionFactory sessionFactory;
+//
+//    public HibernateCarRepositoryImpl(SessionFactory sessionFactory) {
+//        this.sessionFactory = sessionFactory;
+//    }
 
     @Override
     public HibernateCarRepository save(HibernateCarRepository object) {
@@ -50,3 +50,5 @@ public class HibernateCarRepositoryImpl implements HibernateCarRepository {
         return null;
     }
 }
+
+

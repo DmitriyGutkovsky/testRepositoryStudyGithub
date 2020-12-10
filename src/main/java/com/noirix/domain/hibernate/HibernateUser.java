@@ -43,10 +43,6 @@ public class HibernateUser {
     @Column
     private String surname;
 
-//    @Column(name = "birth_date")
-//    private LocalDateTime birthDate;
-
-
     @Column(name = "birth_date")
     @Temporal(TemporalType.DATE)
     private Date birthDate;
@@ -70,17 +66,15 @@ public class HibernateUser {
     @Column
     private String password;
 
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-//    @JsonManagedReference
-//    private Set<HibernateRole> roles = Collections.emptySet();
-
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JsonManagedReference
     private HibernateRole role;
 
+//    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+//    @JsonManagedReference
+//    private HibernateRole role;
 
     @ManyToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnoreProperties("users")
     private Set<HibernateGood> goods = Collections.emptySet();
-
 }
