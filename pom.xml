@@ -163,6 +163,13 @@
             <artifactId>hibernate-jpamodelgen</artifactId>
         </dependency>
 
+<!--        Flyway connection-->
+
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
+
 
         <!--        <dependency>-->
         <!--            <groupId>javax.servlet</groupId>-->
