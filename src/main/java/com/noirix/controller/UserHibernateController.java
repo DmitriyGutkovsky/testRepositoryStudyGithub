@@ -15,6 +15,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
@@ -197,6 +198,14 @@ public class UserHibernateController {
     return new ResponseEntity<>(userSpringDataRepository
             .findUserWithFunctionalCall(Gender.MALE.name(), "Slava", "TestUpdate", "loginSlava"),
             HttpStatus.OK);
+  }
+
+  /*TODO: transaction manager configuration required*/
+  @Modifying
+  @PostMapping("/spring-data/modifying/test")
+  public ResponseEntity<Object> testCreatingLinkRow() {
+    return new ResponseEntity<>(userSpringDataRepository.createSomeRow(4L, 3L),
+            HttpStatus.CREATED);
   }
 
 }

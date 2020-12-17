@@ -33,12 +33,11 @@ public interface UserSpringDataRepository extends JpaRepository<HibernateUser, L
   @Query("select  u.id, u.name from HibernateUser u")
   List<Object[]> getPartsOfUser();
 
-  @Modifying
+  @Modifying(flushAutomatically = true)
   @Query(
       value = "insert into l_user_goods(user_id, good_id) values (:user_id, :good_id)",
       nativeQuery = true)
-  void createSomeRow(@Param("user_id") Long userId, @Param("good_id") Long goodId);
-
+  int createSomeRow(@Param("user_id") Long userId, @Param("good_id") Long goodId);
 
   /*call function case*/
   @Query(value = "select * from smart_user_search(:gender, :firstName, :surname, :login)", nativeQuery = true)
