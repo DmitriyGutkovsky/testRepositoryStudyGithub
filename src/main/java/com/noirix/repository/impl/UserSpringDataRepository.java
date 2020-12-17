@@ -5,8 +5,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.xml.crypto.Data;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 public interface UserSpringDataRepository extends JpaRepository<HibernateUser, Long> {
@@ -40,4 +43,16 @@ public interface UserSpringDataRepository extends JpaRepository<HibernateUser, L
   /*call function case*/
   @Query(value = "select * from smart_user_search(:gender, :firstName, :surname, :login)", nativeQuery = true)
   HibernateUser findUserWithFunctionalCall(String gender, String firstName, String surname, String login);
+
+      @SuppressWarnings("java:S107")
+   @Query(value = "select * from smart_user_search(:gender, :firstName, :surname, :login, :id, :birthDate, :created, :changed)", nativeQuery = true)
+  HibernateUser findUserWithFunctionCall(@Param("gender") String gender,
+                                         @Param("firstName")String firstName,
+                                         @Param("surname")String surname,
+                                         @Param("login")String login,
+                                         @Param("id")Long id,
+                                         @Param("birthDate") Date birthDate,
+                                         @Param("created") Timestamp created,
+                                         @Param("changed")Timestamp changed);
+
 }
