@@ -1,6 +1,7 @@
 package com.noirix.repository.impl;
 
 import com.noirix.controller.requests.SearchCriteria;
+import com.noirix.domain.Credentials_;
 import com.noirix.domain.hibernate.HibernateUser;
 import com.noirix.domain.hibernate.HibernateUser_;
 import com.noirix.repository.HibernateUserRepository;
@@ -175,6 +176,7 @@ public class HibernateUserRepositoryImpl implements HibernateUserRepository {
     Expression<Long> id = root.get(HibernateUser_.id);
     Expression<String> name = root.get(HibernateUser_.name);
     Expression<String> surname = root.get(HibernateUser_.surname);
+//    Expression<String> password = root.get(HibernateUser_.credentials).get(Credentials_.password);
 
     /*SQL Query customizing*/
     query.select(root)

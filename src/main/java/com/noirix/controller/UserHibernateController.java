@@ -3,6 +3,7 @@ package com.noirix.controller;
 import com.noirix.controller.requests.SearchCriteria;
 import com.noirix.controller.requests.UserCreateRequest;
 import com.noirix.controller.requests.UserUpdateRequest;
+import com.noirix.domain.Credentials;
 import com.noirix.domain.Gender;
 import com.noirix.domain.SystemRoles;
 import com.noirix.domain.hibernate.HibernateRole;
@@ -89,8 +90,10 @@ public class UserHibernateController {
     user.setWeight(userCreateRequest.getWeight());
     user.setCreated(new Timestamp(System.currentTimeMillis()));
     user.setChanged(new Timestamp(System.currentTimeMillis()));
-    user.setLogin(userCreateRequest.getLogin());
-    user.setPassword(userCreateRequest.getPassword());
+//    user.setLogin(userCreateRequest.getLogin());
+//    user.setPassword(userCreateRequest.getPassword());
+    user.setCredentials(new Credentials(userCreateRequest.getLogin(),
+            userCreateRequest.getPassword()));
 
     //        user.setRoles(Collections.singleton(new HibernateRole("ROLE_ADMIN", user)));
     //        user.setRole(new HibernateRole("ROLE_ADMIN", user));
@@ -108,8 +111,10 @@ public class UserHibernateController {
     HibernateUser user = hibernateUserRepository.findById(id);
 
     user.setGender(userCreateRequest.getGender());
-    user.setName(userCreateRequest.getName());
-    user.setSurname(userCreateRequest.getSurname());
+//    user.setName(userCreateRequest.getName());
+//    user.setSurname(userCreateRequest.getSurname());
+    user.setCredentials(new Credentials(userCreateRequest.getLogin(),
+            userCreateRequest.getPassword()));
     user.setBirthDate(userCreateRequest.getBirthDate());
     user.setWeight(userCreateRequest.getWeight());
     user.setChanged(new Timestamp(System.currentTimeMillis()));
@@ -132,6 +137,8 @@ public class UserHibernateController {
     user.setGender(userUpdateRequest.getGender());
     user.setName(userUpdateRequest.getName());
     user.setSurname(userUpdateRequest.getSurname());
+    user.setCredentials(new Credentials(userUpdateRequest.getLogin(),
+            userUpdateRequest.getPassword()));
     user.setBirthDate(userUpdateRequest.getBirthDate());
     user.setChanged(new Timestamp(System.currentTimeMillis()));
     user.setWeight(userUpdateRequest.getWeight());

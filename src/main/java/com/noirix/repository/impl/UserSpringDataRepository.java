@@ -1,5 +1,6 @@
 package com.noirix.repository.impl;
 
+import com.noirix.domain.Credentials;
 import com.noirix.domain.hibernate.HibernateUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -14,12 +15,14 @@ import java.util.List;
 
 public interface UserSpringDataRepository extends JpaRepository<HibernateUser, Long> {
 
-  List<HibernateUser> findByLogin(String Login);
+  List<HibernateUser> findByCredentials(Credentials credentials);
 
-  List<HibernateUser> findByLoginAndNameAndBirthDate(String Login, String name, Data birthDate);
+//  List<HibernateUser> findByLogin(String Login);
 
-  List<HibernateUser> findByLoginAndNameOrBirthDateOrderByIdDescNameDesc(
-      String Login, String name, Data birthDate);
+//  List<HibernateUser> findByLoginAndNameAndBirthDate(String Login, String name, Data birthDate);
+
+//  List<HibernateUser> findByLoginAndNameOrBirthDateOrderByIdDescNameDesc(
+//      String Login, String name, Data birthDate);
 
   @Query(value = "select u from HibernateUser u")
   List<HibernateUser> findByHQLQuery();
@@ -27,7 +30,8 @@ public interface UserSpringDataRepository extends JpaRepository<HibernateUser, L
   @Query(value = "select u from m_user u", nativeQuery = true)
   List<HibernateUser> findByHQLQueryNative();
 
-  @Query(value = "select u from HibernateUser u where u.login = :login and u.name = :userName")
+  @Query(value = "select u from HibernateUser u where u.credentials.login = :login and u.name = :userName")
+//  @Query(value = "select u from HibernateUser u where u.login = :login and u.name = :userName")
   List<HibernateUser> findByHQLQuery(String login, @Param("userName") String name);
 
   @Query("select  u.id, u.name from HibernateUser u")

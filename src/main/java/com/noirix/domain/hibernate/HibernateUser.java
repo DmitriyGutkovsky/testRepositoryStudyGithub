@@ -2,24 +2,12 @@ package com.noirix.domain.hibernate;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.noirix.domain.Credentials;
 import com.noirix.domain.Gender;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.Date;
@@ -60,11 +48,18 @@ public class HibernateUser {
     @Column
     private Float weight;
 
-    @Column
-    private String login;
+//    @Column
+//    private String login;
+//
+//    @Column
+//    private String password;
 
-    @Column
-    private String password;
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "login", column = @Column(name = "login")),
+            @AttributeOverride(name = "password", column = @Column(name = "password"))
+    })
+    private Credentials credentials;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JsonManagedReference
