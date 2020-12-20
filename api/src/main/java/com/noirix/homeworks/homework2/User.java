@@ -1,4 +1,4 @@
-package com.noirix.resources.homeworks.homework2;
+package com.noirix.homeworks.homework2;
 
 import lombok.Data;
 

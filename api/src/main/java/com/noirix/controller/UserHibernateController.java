@@ -155,14 +155,18 @@ public class UserHibernateController {
   }
 
   @GetMapping("/creteriaapi")
-  public ResponseEntity<Object> testCriteriaAPI(@ModelAttribute SearchCriteria criteria) {
-    Object all = hibernateUserRepository.testCriteriaApi(criteria);
+//  public ResponseEntity<Object> testCriteriaAPI(@ModelAttribute SearchCriteria criteria) {
+  public ResponseEntity<Object> testCriteriaAPI() {
+//    Object all = hibernateUserRepository.testCriteriaApi(criteria);
+    Object all = hibernateUserRepository.testCriteriaApi();
     return new ResponseEntity<>(all, HttpStatus.OK);
   }
 
   @GetMapping("/creteriaapi/task")
-  public ResponseEntity<Object> testCriteriaAPITask(@ModelAttribute SearchCriteria criteria) {
-    Object all = hibernateUserRepository.testCriteriaApiTask(criteria);
+//  public ResponseEntity<Object> testCriteriaAPITask(@ModelAttribute SearchCriteria criteria) {
+  public ResponseEntity<Object> testCriteriaAPITask() {
+//    Object all = hibernateUserRepository.testCriteriaApiTask(criteria);
+    Object all = hibernateUserRepository.testCriteriaApiTask();
     return new ResponseEntity<>(all, HttpStatus.OK);
   }
 

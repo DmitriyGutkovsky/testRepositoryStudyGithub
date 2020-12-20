@@ -1,6 +1,6 @@
 package com.noirix.repository.impl;
 
-import com.noirix.controller.requests.SearchCriteria;
+//import com.noirix.controller.requests.SearchCriteria;
 import com.noirix.domain.hibernate.HibernateUser;
 import com.noirix.domain.hibernate.HibernateUser_;
 import com.noirix.repository.HibernateUserRepository;
@@ -182,7 +182,8 @@ public class HibernateUserRepositoryImpl implements HibernateUserRepository {
   }
 
   @Override
-  public List<HibernateUser> testCriteriaApi(SearchCriteria criteria) {
+//  public List<HibernateUser> testCriteriaApi(SearchCriteria criteria) {
+  public List<HibernateUser> testCriteriaApi() {
 
     //    EntityManager entityManager = sessionFactory.createEntityManager();
 
@@ -228,8 +229,8 @@ public class HibernateUserRepositoryImpl implements HibernateUserRepository {
 
     TypedQuery<HibernateUser> resultQuery =
         entityManager.createQuery(query); // prepared statement on hql
-    resultQuery.setParameter(param, StringUtils.join("%", criteria.getQuery(), "%"));
-    resultQuery.setParameter(userSearchParam, criteria.getUserLowerId());
+//    resultQuery.setParameter(param, StringUtils.join("%", criteria.getQuery(), "%"));
+//    resultQuery.setParameter(userSearchParam, criteria.getUserLowerId());
     return resultQuery.getResultList();
   }
 
@@ -239,7 +240,8 @@ public class HibernateUserRepositoryImpl implements HibernateUserRepository {
   // сортировка от меньшего к большему - по дефолту
 
   @Override
-  public List<HibernateUser> testCriteriaApiTask(SearchCriteria criteria) {
+//  public List<HibernateUser> testCriteriaApiTask(SearchCriteria criteria) {
+  public List<HibernateUser> testCriteriaApiTask() {
 
     //    EntityManager entityManager = sessionFactory.createEntityManager();
 
@@ -271,7 +273,7 @@ public class HibernateUserRepositoryImpl implements HibernateUserRepository {
 
     TypedQuery<HibernateUser> resultQuery =
         entityManager.createQuery(query); // prepared statement on hql
-    resultQuery.setParameter(param, StringUtils.join("%", criteria.getQuery(), "%"));
+//    resultQuery.setParameter(param, StringUtils.join("%", criteria.getQuery(), "%"));
     return resultQuery.getResultList();
   }
 
