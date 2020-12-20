@@ -221,4 +221,10 @@ public class UserHibernateController {
     return new ResponseEntity<>(all, HttpStatus.OK);
   }
 
+  @GetMapping("/testleveltwocache")
+  public ResponseEntity<Object> testTwoLevelCacheMethod() {
+    Object all = hibernateUserRepository.testLevelTwoCache();
+    return new ResponseEntity<>(all, HttpStatus.OK);
+  }
+
 }

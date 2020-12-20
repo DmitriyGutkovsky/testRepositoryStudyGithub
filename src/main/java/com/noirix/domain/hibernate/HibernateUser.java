@@ -18,6 +18,7 @@ import java.util.Set;
 @EqualsAndHashCode(exclude = {
         "roles", "goods"
 })
+@Cacheable
 @Table(name = "m_users")
 public class HibernateUser {
 

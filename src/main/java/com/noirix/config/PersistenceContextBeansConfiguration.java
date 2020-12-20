@@ -57,6 +57,10 @@ public class PersistenceContextBeansConfiguration {
 
         // See: application.properties
         properties.put("hibernate.show_sql", "true"); // показывать sql, который выполняется в базу или нет (обычно вкл. когда дебажат приложение)
+        // adding second level cache
+        properties.put("hibernate.cache.region.factory_class", "org.hibernate.cache.jcache.JCacheRegionFactory");
+        properties.put("hibernate.javax.cache.provider", "org.ehcache.jsr107.EhcacheCachingProvider");
+        properties.put("hibernate.cache.use_second_level_cache", "true");
         properties.put("current_session_context_class",
                 "org.springframework.orm.hibernate5.SpringSessionContext"); // помогает Spring и Hibernate работать вместе
         return properties;
