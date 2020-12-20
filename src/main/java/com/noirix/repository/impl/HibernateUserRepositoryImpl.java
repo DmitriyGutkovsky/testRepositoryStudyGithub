@@ -125,7 +125,29 @@ public class HibernateUserRepositoryImpl implements HibernateUserRepository {
 
   @Override
   public Optional<HibernateUser> findByLogin(String login) {
-    return Optional.empty();
+    Session session = sessionFactory.openSession();
+    //TODO: fix cache provider
+    session.beginTransaction();
+
+    List<HibernateUser> resultList = session.createQuery("select u from HibernateUser u where u.id = 1L", HibernateUser.class)
+            .setCacheable(true)
+            .getResultList();
+
+    session.get(HibernateUser.class, 1L);
+    session.getTransaction().commit();
+    session.close();
+
+
+    Session session1 = sessionFactory.openSession();
+    Transaction transaction1 = session1.beginTransaction();
+    resultList = session1.createQuery("select u from HibernateUser u where u.id = 1L", HibernateUser.class)
+            .setCacheable(true)
+            .getResultList();
+
+    transaction1.commit();
+    session1.close();
+
+    return Optional.of(new HibernateUser());
   }
 
   @Override

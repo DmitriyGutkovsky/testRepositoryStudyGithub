@@ -227,4 +227,10 @@ public class UserHibernateController {
     return new ResponseEntity<>(all, HttpStatus.OK);
   }
 
+  @GetMapping("/testlevelthreeocache")
+  public ResponseEntity<Object> testThreeLevelCacheMethod() {
+    Object all = hibernateUserRepository.findByLogin("test");
+    return new ResponseEntity<>(all, HttpStatus.OK);
+  }
+
 }
