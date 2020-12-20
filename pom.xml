@@ -170,6 +170,10 @@
             <artifactId>flyway-core</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+        </dependency>
 
         <!--        <dependency>-->
         <!--            <groupId>javax.servlet</groupId>-->
