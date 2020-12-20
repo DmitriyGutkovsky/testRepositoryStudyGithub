@@ -215,4 +215,10 @@ public class UserHibernateController {
             HttpStatus.CREATED);
   }
 
+  @GetMapping("/testcache")
+  public ResponseEntity<Object> testCacheMethod() {
+    Object all = hibernateUserRepository.testCache();
+    return new ResponseEntity<>(all, HttpStatus.OK);
+  }
+
 }

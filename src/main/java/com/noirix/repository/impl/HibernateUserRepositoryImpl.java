@@ -29,16 +29,16 @@ import java.util.Optional;
 @Repository
 @Primary
 @Log4j2
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 public class HibernateUserRepositoryImpl implements HibernateUserRepository {
 
-//  private final SessionFactory sessionFactory;
+  private final SessionFactory sessionFactory;
 
   private EntityManager entityManager;
 
-  public HibernateUserRepositoryImpl(EntityManager entityManager) {
-    this.entityManager = entityManager;
-  }
+//  public HibernateUserRepositoryImpl(EntityManager entityManager) {
+//    this.entityManager = entityManager;
+//  }
 
   //  public HibernateUserRepositoryImpl(SessionFactory sessionFactory) {
 //    this.sessionFactory = sessionFactory;
@@ -243,6 +243,25 @@ public class HibernateUserRepositoryImpl implements HibernateUserRepository {
     TypedQuery<HibernateUser> resultQuery = entityManager.createQuery(query); //prepared statement on hql
     resultQuery.setParameter(param, StringUtils.join("%", criteria.getQuery(), "%"));
     return resultQuery.getResultList();
+  }
+
+  @Override
+  public List<HibernateUser> testCache() {
+    try (Session session = sessionFactory.openSession()){
+//      TODO check this example after transactions configuration
+      Transaction transaction = session.getTransaction();
+      transaction.begin();
+//      session.beginTransaction();
+      HibernateUser hibernateUser = session.get(HibernateUser.class, 1l);
+
+//      HibernateUser hibernateUser1 = session.get(HibernateUser.class, 1l);
+      hibernateUser = session.get(HibernateUser.class, 1l);
+
+      transaction.commit();
+//      session.getTransaction().commit();
+
+      return Collections.singletonList(hibernateUser);
+    }
   }
 
 }

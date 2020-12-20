@@ -3,6 +3,7 @@ package com.noirix.config;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -13,28 +14,30 @@ import java.util.Properties;
 
 public class PersistenceContextBeansConfiguration {
 
-//    @Autowired
-//    @Bean(name = "sessionFactory")
-//    public SessionFactory getSessionFactory(DataSource dataSource) throws Exception {
-//        // Fix Postgres JPA Error:
-//        // Method org.postgresql.jdbc.PgConnection.createClob() is not yet implemented.
-//        // properties.put("hibernate.temp.use_jdbc_metadata_defaults",false);
-//
-//        LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
-//
-//        // Package contain entity classes
-//        factoryBean.setPackagesToScan("com.noirix"); // hibernate: where find classes with @Entity
-//        factoryBean.setDataSource(dataSource);
-//        factoryBean.setHibernateProperties(getAdditionalProperties());
-//        factoryBean.afterPropertiesSet();
-//        //
-//        SessionFactory sf = factoryBean.getObject();
-//        System.out.println("## getSessionFactory: " + sf);
-//        return sf;
-//    }
+    @Autowired
+//    @Primary
+    @Bean(name = "sessionFactory")
+    public SessionFactory getSessionFactory(DataSource dataSource) throws Exception {
+        // Fix Postgres JPA Error:
+        // Method org.postgresql.jdbc.PgConnection.createClob() is not yet implemented.
+        // properties.put("hibernate.temp.use_jdbc_metadata_defaults",false);
+
+        LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
+
+        // Package contain entity classes
+        factoryBean.setPackagesToScan("com.noirix"); // hibernate: where find classes with @Entity
+        factoryBean.setDataSource(dataSource);
+        factoryBean.setHibernateProperties(getAdditionalProperties());
+        factoryBean.afterPropertiesSet();
+        //
+        SessionFactory sf = factoryBean.getObject();
+        System.out.println("## getSessionFactory: " + sf);
+        return sf;
+    }
 
     //Entity Manager
     @Autowired
+    @Primary
     @Bean(name = "entityManagerFactory")
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
         LocalContainerEntityManagerFactoryBean em
