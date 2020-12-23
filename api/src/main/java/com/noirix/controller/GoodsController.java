@@ -19,9 +19,16 @@ public class GoodsController {
 
     private final GoodsRepository goodsRepository;
 
+    private final CacheManager cacheManager;
+
     @GetMapping
     public ResponseEntity<List<HibernateGood>> findAll() {
         return new ResponseEntity<>(goodsRepository.findAllWithCache(), HttpStatus.OK);
+    }
+
+    @GetMapping("/caches")
+    public ResponseEntity<Object> getCachesInfo() {
+        return new ResponseEntity<>(String.join(",", cacheManager.getCacheNames()), HttpStatus.OK);
     }
 
 }
