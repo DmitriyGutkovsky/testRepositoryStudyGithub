@@ -100,7 +100,7 @@ public class ApplicationBeans {
                 .build();
     }
 
-    // Cache: Caffeine cinfiguration
+    // Cache: Caffeine configuration
     @Bean
     public CacheManager cacheManager() {
         CaffeineCacheManager cacheManager = new CaffeineCacheManager("goods");
