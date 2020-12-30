@@ -1,6 +1,10 @@
 package com.noirix;
 
-import com.noirix.config.*;
+import com.noirix.config.AmazonConfig;
+import com.noirix.config.ApplicationBeans;
+import com.noirix.config.GoogleConfig;
+import com.noirix.config.PersistenceContextBeansConfiguration;
+import com.noirix.config.WebBeansConfig;
 import com.noirix.security.configuration.JwtTokenConfig;
 import com.noirix.security.configuration.WebSecurityConfiguration;
 import org.springframework.boot.SpringApplication;

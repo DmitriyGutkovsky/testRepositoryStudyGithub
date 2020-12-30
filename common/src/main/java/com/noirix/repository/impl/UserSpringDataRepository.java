@@ -6,6 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.xml.crypto.Data;
@@ -37,6 +40,7 @@ public interface UserSpringDataRepository extends JpaRepository<HibernateUser, L
   @Query("select  u.id, u.name from HibernateUser u")
   List<Object[]> getPartsOfUser();
 
+  @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT)
   @Modifying(flushAutomatically = true)
   @Query(
       value = "insert into l_user_goods(user_id, good_id) values (:user_id, :good_id)",
