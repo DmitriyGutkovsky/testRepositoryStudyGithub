@@ -14,6 +14,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
@@ -46,6 +47,7 @@ public class UserHibernateController {
 
   public final HibernateUserRepository hibernateUserRepository;
   public final UserSpringDataRepository userSpringDataRepository;
+  public final ConversionService conversionService;
 
   @GetMapping
   public ResponseEntity<Object> findAllHibernateUser() {
@@ -83,25 +85,30 @@ public class UserHibernateController {
   @ResponseStatus(HttpStatus.CREATED)
   public HibernateUser savingUser(@RequestBody UserCreateRequest userCreateRequest) {
 
-    HibernateUser user = new HibernateUser();
+    // replaced to converters
 
-    user.setGender(userCreateRequest.getGender());
-    user.setName(userCreateRequest.getName());
-    user.setSurname(userCreateRequest.getSurname());
-    user.setBirthDate(userCreateRequest.getBirthDate());
-    user.setWeight(userCreateRequest.getWeight());
-    user.setCreated(new Timestamp(System.currentTimeMillis()));
-    user.setChanged(new Timestamp(System.currentTimeMillis()));
-//    user.setLogin(userCreateRequest.getLogin());
-//    user.setPassword(userCreateRequest.getPassword());
-    user.setCredentials(new Credentials(userCreateRequest.getLogin(),
-            userCreateRequest.getPassword()));
+//    HibernateUser user = new HibernateUser();
+//
+//    user.setGender(userCreateRequest.getGender());
+//    user.setName(userCreateRequest.getName());
+//    user.setSurname(userCreateRequest.getSurname());
+//    user.setBirthDate(userCreateRequest.getBirthDate());
+//    user.setWeight(userCreateRequest.getWeight());
+//    user.setCreated(new Timestamp(System.currentTimeMillis()));
+//    user.setChanged(new Timestamp(System.currentTimeMillis()));
+////    user.setLogin(userCreateRequest.getLogin());
+////    user.setPassword(userCreateRequest.getPassword());
+//    user.setCredentials(new Credentials(userCreateRequest.getLogin(),
+//            userCreateRequest.getPassword()));
+//
+//    //        user.setRoles(Collections.singleton(new HibernateRole("ROLE_ADMIN", user)));
+//    //        user.setRole(new HibernateRole("ROLE_ADMIN", user));
+//    user.setRole(new HibernateRole(SystemRoles.ROLE_ADMIN, user));
 
-    //        user.setRoles(Collections.singleton(new HibernateRole("ROLE_ADMIN", user)));
-    //        user.setRole(new HibernateRole("ROLE_ADMIN", user));
-    user.setRole(new HibernateRole(SystemRoles.ROLE_ADMIN, user));
+    HibernateUser hibernateUser = conversionService.convert(userCreateRequest, HibernateUser.class);
 
-    return hibernateUserRepository.save(user);
+//    return hibernateUserRepository.save(user);
+    return userSpringDataRepository.save(hibernateUser);
   }
 
   //    http://localhost:8080/rest/users/47
