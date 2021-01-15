@@ -37,6 +37,8 @@ spring:
 amazon:
   images:
     s3: testrepositorystudygithub
+    #   acount setting -> Your Security Credentials ->
+    #    Access keys (access key ID and secret access key) -> Create New Access Key
     accessKeyId: someToken
     secretKey: password
     bucket: finalprojectjd2
