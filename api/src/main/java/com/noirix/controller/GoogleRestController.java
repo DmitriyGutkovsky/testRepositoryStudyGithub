@@ -28,8 +28,8 @@ public class GoogleRestController {
 
     Map<String, String> map = new LinkedHashMap<>();
     map.put("s3", amazonConfig.getS3());
-    map.put("token", amazonConfig.getToken());
-    map.put("password", amazonConfig.getPassword());
+    map.put("token", amazonConfig.getAccessKeyId());
+    map.put("password", amazonConfig.getSecretKey());
 
     map.put("login", googleConfig.getLogin());
     map.put("pincode", googleConfig.getPincode());
