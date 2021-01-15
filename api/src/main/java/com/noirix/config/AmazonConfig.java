@@ -13,10 +13,17 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties("amazon.images")
 public class AmazonConfig {
 
-    private String s3;
+  private String s3;
 
-    private String token;
+  private String accessKeyId;
 
-    private String password;
+  private String secretKey;
 
+  private String bucket;
+
+  private String serverUrl;
+
+  private String userFolder;
+
+  private String region;
 }
