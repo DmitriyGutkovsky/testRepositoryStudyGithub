@@ -39,9 +39,10 @@ public class AmazonUploadFileServiceImpl implements AmazonUploadFileService {
         RequestBody.fromBytes(imageBytes));
 
     return String.format(
-        "%s/%s/%s/%s/%s.jpg",
+//        "%s/%s/%s/%s/%s.jpg",
+        "%s/%s/%s/%s.jpg",
         amazonS3Config.getServerUrl(),
-        amazonS3Config.getBucket(),
+//        amazonS3Config.getBucket(), // returns correct link without it
         amazonS3Config.getUserFolder(),
         userId,
         imageUUID);
